@@ -1,19 +1,29 @@
 #!/bin/bash
 
-# Define the target XML snippet
-TARGET_CODE='
-    <dict>
-\\nskdsdknsdknsdfsdlkfnsdlkfnkl
-'
-
 # Define the path to the plist file
 PLIST_PATH='/Library/Preferences/com.apple.networkextension.plist'
 
-# Check if the target code is present in the plist
-if grep -n -qF "$TARGET_CODE" "$PLIST_PATH"; then
-    echo "Target code found in the plist!"
-    grep -n -F "$TARGET_CODE" "$PLIST_PATH"
-else
-    echo "Target code not found in the plist."
-fi
+# Specify the snippet of text you want to check for
+SEARCH_TEXT_1='
+        Index = "<CFKeyedArchiverUID 0x6000012fe4e0 [0x1dc2df810]>{value = 1}";
+'
 
+SEARCH_TEXT_2='
+        "6JQLCT6DRB.com.radiosilenceapp.app-group",
+        "group.com.pvpn.privatevpn.packettunnel",
+        "8UNVXQC2DG.group.com.urban-vpn.mac",
+        "com.radiosilenceapp.client",
+        "com.pvpn.privatevpn",
+        "com.urban-vpn.mac",
+'
+
+
+# Read the contents of the plist file
+PLIST_CONTENTS=$(defaults read "$PLIST_PATH")
+
+# Check if both snippets of text are present in the plist content
+if [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_1"* && "$PLIST_CONTENTS" == *"$SEARCH_TEXT_2"* ]]; then
+  echo "Both snippets found in the plist file."
+else
+  echo "At least one of the snippets not found in the plist file."
+fi
