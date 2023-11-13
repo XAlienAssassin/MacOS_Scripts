@@ -5,7 +5,9 @@ PLIST_PATH='/Library/Preferences/com.apple.networkextension.plist'
 
 # Specify the snippet of text you want to check for
 SEARCH_TEXT_1='
-        Index = "<CFKeyedArchiverUID 0x6000012fe4e0 [0x1dc2df810]>{value = 1}";
+    "$archiver" = NSKeyedArchiver;
+    "$objects" =     (
+        "$null",
 '
 
 SEARCH_TEXT_2='
