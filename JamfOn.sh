@@ -1,25 +1,19 @@
 #!/bin/bash
 
-# Define the code section you want to search for
-search_pattern='<dict>
-\s*<key>\$classes<\/key>
-\s*<array>
-\s*<string>NSMutableDictionary<\/string>
-\s*<string>NSDictionary<\/string>
-\s*<string>NSObject<\/string>
-\s*<\/array>
-\s*<key>\$classname<\/key>
-\s*<string>NSMutableDictionary<\/string>
-\s*<\/dict>'
+# Define the target XML snippet
+TARGET_CODE='
+    <dict>
+\\nskdsdknsdknsdfsdlkfnsdlkfnkl
+'
 
-# Define the file path
-file_path="/Library/Preferences/com.apple.networkextension.plist"
+# Define the path to the plist file
+PLIST_PATH='/Library/Preferences/com.apple.networkextension.plist'
 
-# Use grep to search for the pattern in the file and store the result in a variable
-result=$(grep -zo "$search_pattern" "$file_path")
-
-if [ -n "$result" ]; then
-  echo "<result>Found in the file.</result>"
+# Check if the target code is present in the plist
+if grep -n -qF "$TARGET_CODE" "$PLIST_PATH"; then
+    echo "Target code found in the plist!"
+    grep -n -F "$TARGET_CODE" "$PLIST_PATH"
 else
-  echo "<result>Not Found in the file.</result>"
+    echo "Target code not found in the plist."
 fi
+
