@@ -14,7 +14,7 @@ SEARCH_TEXT_1='
 PLIST_CONTENTS=$(defaults read "$PLIST_PATH")
 
 # Check if both snippets of text are present in the plist content
-if "$PLIST_CONTENTS" == *"$SEARCH_TEXT_1"* ; then
+if [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_1"* ]]; then
   echo "Enabled"
 else
   echo "Not Enabled"
