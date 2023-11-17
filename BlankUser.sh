@@ -12,4 +12,4 @@ UUID=$(ioreg -rd1 -c IOPlatformExpertDevice | awk -F'"' '/IOPlatformUUID/{print 
 value=""
 
 # Update computer details in Jamf
-curl -X PUT -H "Content-Type: application/xml" -u "$apiuser:$apipass" "$jssURL/JSSResource/computers/udid/$UUID" -d "<computer><location><username>$value</username><realname>$value</realname><real_name>$value</real_name><email_address>$value</email_address><position>$value</position><department>$value</department></location></computer>"
+curl -X PUT -H "Content-Type: application/xml" -u "$apiuser:$apipass" "$jssURL/JSSResource/computers/udid/$UUID" -d "<computer><location><username>$value</username><realname>$value</realname><real_name>$value</real_name><email_address>$value</email_address><position>$value</position><department>$value</department><phone_number>$value</phone_number><phone>$value</phone></location></computer>"
