@@ -8,7 +8,7 @@
 # If all compared components are equal, it returns '='.
 # If version2 has fewer components than version1, the missing components in version2 are considered as '0'.
 version_compare() {
-    local IFS=.
+    local IFS="."
     local i version1=($1) version2=($2)
     # Loop through each component of the version strings
     for ((i=0; i<${#version1[@]}; i++)); do
