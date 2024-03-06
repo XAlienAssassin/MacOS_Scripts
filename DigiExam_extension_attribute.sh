@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 version_compare() {
     # Set the Internal Field Separator to '.', which is used for splitting version numbers into components.
     local IFS="."
