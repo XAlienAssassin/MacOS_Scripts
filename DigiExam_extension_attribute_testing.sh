@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#t
+
 # Function to compare version numbers
 # Takes two version strings as input and compares them
 version_compare() {
@@ -28,7 +28,7 @@ if [ -e "$info_plist" ]; then
     digiexam_version="15.22.9"
 
     # Extract the latest version using the specified curl command
-    latest_version="15.03.99"
+    latest_version="15.0.99"
     # Check if the latest version is empty (curl command failed)
     if [ -z "$latest_version" ]; then
         echo "<result>Curl command failed. Unable to retrieve the latest version.</result>"
