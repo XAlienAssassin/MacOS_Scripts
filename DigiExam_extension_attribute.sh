@@ -14,10 +14,12 @@ version_compare() {
         fi
         # Numerically compare the current component of both versions.
         # If the component of version1 is greater, return '>' indicating version1 is newer.
+        # Comparing version numbers as base-10 integers to avoid octal interpretation of leading zeros
         if ((10#${version1[i]} > 10#${version2[i]})); then
             echo ">"
             return
         # If the component of version1 is less, return '<' indicating version1 is older.
+        # Comparing version numbers as base-10 integers to avoid octal interpretation of leading zeros
         elif ((10#${version1[i]} < 10#${version2[i]})); then
             echo "<"
             return
