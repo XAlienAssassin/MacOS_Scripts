@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+#t
 # Function to compare version numbers
 # Takes two version strings as input and compares them
 version_compare() {
