@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Path to DigiExam Info.plist file (modify as needed)
-info_plist="/Applications/DigiExam.app/Contents/Info.plist"
 
 # Function to compare version numbers
 # Takes two version strings as input and compares them
@@ -32,6 +30,9 @@ version_compare() {
     # If all segments are equal, the versions are the same
     echo "="
 }
+
+# Path to DigiExam Info.plist file (modify as needed)
+info_plist="/Applications/DigiExam.app/Contents/Info.plist"
 
 # Check if Info.plist file exists
 if [ -e "$info_plist" ]; then
