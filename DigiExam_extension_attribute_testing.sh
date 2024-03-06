@@ -14,7 +14,7 @@ version_compare() {
     for ((i=0; i<${#version1[@]}; i++)); do
         # Compare segments as base-10 to prevent octal interpretation
         if ((10#${version1[i]} > 10#${version2[i]})); then echo ">"; return; fi  # version1 is newer
-        if ((10#${version1[i]} < 10#${version2[i]})); then echo "<"; return; fi  # version1 is older
+        if ((10#${version1[i]} < 10#${version2[i]})); then echo "<"; return; fi  # version1 is older 
     done
     echo "="  # Versions are identical if all segments are equal
 }
