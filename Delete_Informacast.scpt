@@ -1,6 +1,9 @@
 on run
+	-- Get the path to the user's desktop folder as a string
 	set desktopFolder to path to desktop folder as string
+	-- Define the name of the alias for InformaCast Desktop Notifier
 	set aliasName to "InformaCast Desktop Notifier"
+	-- Concatenate the desktop folder path and the alias name to form the full path to the InformaCast Desktop Notifier
 	set aliasPath to desktopFolder & aliasName as string
 	
 	-- force quit the application (also prompts for admin password for the first time which has a cancel button); TODO: consider not using sudo here and instead
@@ -11,14 +14,14 @@ on run
 	on error message number errorNumber
 		if errorNumber = -128 then
 			-- `Cancel` button is likely used or privileges don't exist, allow the uninstall to abort now and continue to run the app binary unchanged
-			display dialog "Uninstallation cannot be completed without administrative privileges." with icon stop with title "InformaCast Desktop Notifier" buttons {"OK"} default button "OK"
+			display dialog "Uninstallation cannot be completed without administrative privileges."
 			return
 		else if errorNumber = 1 then
 			-- The process is already stopped or not running, just ignore the error for now and continue with uninstallation
 			log "Unable to stop existing process (uninstallation will continue) message: " & message & " errorNumber: " & errorNumber
 		else
 			-- Fatal script error, this shouldn't happen unless some kind of OS change occurs in the future
-			error "An uncategorized error occurred stopping the InformaCast Desktop Notifier. The uninstall process is unable to continue due to: " & message number errorNumber
+			error "An uncategorized error occurred stopping the application. The uninstall process is unable to continue due to: " & message number errorNumber
 		end if
 	end try
 	
