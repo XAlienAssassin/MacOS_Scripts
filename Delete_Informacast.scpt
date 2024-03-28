@@ -58,3 +58,5 @@ on run
 	do shell script "sudo pkgutil --forget com.singlewire.pkg.DesktopNotifier" with administrator privileges
 	
 end run
+
+
