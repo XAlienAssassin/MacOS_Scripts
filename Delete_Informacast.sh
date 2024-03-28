@@ -55,10 +55,6 @@
 	do shell script "sudo rm -rf /Library/LaunchAgents/com.singlewire.DesktopNotifier*.plist" with administrator privileges
 	-- remove the Application Support folder
 	do shell script "sudo rm -rf \"/Library/Application Support/Singlewire\"" with administrator privileges
-	-- uninstall installer reciepts (receipt file location can vary based on MacOS version)
-	do shell script "sudo pkgutil --forget com.singlewire.pkg.DesktopNotifier" with administrator privileges
 	
 EOF
-
-
 
