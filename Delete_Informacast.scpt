@@ -1,10 +1,10 @@
 on run
 	-- Get the path to the user's desktop folder as a string
-	set desktopFolder to path to desktop folder as string
+	-- set desktopFolder to path to desktop folder as string
 	-- Define the name of the alias for InformaCast Desktop Notifier
-	set aliasName to "InformaCast Desktop Notifier"
+	-- set aliasName to "InformaCast Desktop Notifier"
 	-- Concatenate the desktop folder path and the alias name to form the full path to the InformaCast Desktop Notifier
-	set aliasPath to desktopFolder & aliasName as string
+	-- set aliasPath to desktopFolder & aliasName as string
 	
 	-- force quit the application (also prompts for admin password for the first time which has a cancel button); TODO: consider not using sudo here and instead
 	-- verifying earlier in this processing that the current user has administrator privileges some another way (rather than failing later with the system
@@ -66,14 +66,4 @@ on run
 	-- uninstall installer reciepts (receipt file location can vary based on MacOS version)
 	do shell script "sudo pkgutil --forget com.singlewire.pkg.DesktopNotifier" with administrator privileges
 	
-	-- show dialog stating it was uninstalled
-	tell application "System Events"
-		try
-			-- An alias may have been optionally installed, if it exists it is permanently removed
-			delete alias aliasPath
-		on error
-			-- "Finder" allows checking file existance, System Events does not. In addition, the former allows
-			-- restoring from Trash while the latter does not (desired behavior).
-		end try
-	end tell
 end run
