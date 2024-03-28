@@ -1,2 +1,2 @@
-remote_ip="10.41.0.144"
+remote_ip="10.101.0.24"
 scp Casper@$remote_ip:/Library/Management/super/logs/super.log "/Users/medinao/Downloads/SSH_Files/super_log_$(ssh Casper@$remote_ip 'system_profiler SPHardwareDataType | awk "/Serial/ {print \$4}"').log"
