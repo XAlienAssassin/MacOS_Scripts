@@ -72,6 +72,5 @@ on run
 			-- "Finder" allows checking file existance, System Events does not. In addition, the former allows
 			-- restoring from Trash while the latter does not (desired behavior).
 		end try
-		display dialog "InformaCast Desktop Notifier successfully uninstalled." with icon note buttons {"OK"} default button "OK"
 	end tell
 end run
