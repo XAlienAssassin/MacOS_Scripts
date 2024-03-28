@@ -55,6 +55,12 @@
 	do shell script "sudo rm -rf /Library/LaunchAgents/com.singlewire.DesktopNotifier*.plist" with administrator privileges
 	-- remove the Application Support folder
 	do shell script "sudo rm -rf \"/Library/Application Support/Singlewire\"" with administrator privileges
-	
 EOF
+
+# Verification of deletion
+if [ ! -d "/Applications/DesktopNotifier.app" ] && [ ! -d "/Library/LaunchAgents/com.singlewire.DesktopNotifierTrashMonitor.plist" ] && [ ! -d "/Library/LaunchAgents/com.singlewire.DesktopNotifierAgent.plist" ] && [ ! -d "/Library/Application Support/Singlewire" ]; then
+    echo "<result>DesktopNotifier and associated launch agents have been successfully removed.</result>"
+else
+    echo "<result>Error: DesktopNotifier or some components were not successfully removed.</result>"
+fi
 
