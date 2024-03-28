@@ -1,14 +1,5 @@
 on run
-	-- Get the path to the user's desktop folder as a string
-	-- set desktopFolder to path to desktop folder as string
-	-- Define the name of the alias for InformaCast Desktop Notifier
-	-- set aliasName to "InformaCast Desktop Notifier"
-	-- Concatenate the desktop folder path and the alias name to form the full path to the InformaCast Desktop Notifier
-	-- set aliasPath to desktopFolder & aliasName as string
-	
-	-- force quit the application (also prompts for admin password for the first time which has a cancel button); TODO: consider not using sudo here and instead
-	-- verifying earlier in this processing that the current user has administrator privileges some another way (rather than failing later with the system
-	-- potentially in some partially uninstalled state)
+
 	try
 		do shell script "sudo killall DesktopNotifier" with administrator privileges
 	on error message number errorNumber
