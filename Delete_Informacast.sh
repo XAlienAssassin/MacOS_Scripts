@@ -1,5 +1,6 @@
-on run
+#!/bin/bash
 
+/usr/bin/osascript << EOF
 	try
 		do shell script "sudo killall DesktopNotifier" with administrator privileges
 	on error message number errorNumber
@@ -57,7 +58,7 @@ on run
 	-- uninstall installer reciepts (receipt file location can vary based on MacOS version)
 	do shell script "sudo pkgutil --forget com.singlewire.pkg.DesktopNotifier" with administrator privileges
 	
-end run
+EOF
 
 
 
