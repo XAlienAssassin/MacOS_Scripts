@@ -4,6 +4,9 @@
 // The Perl script filters lines that contain the word "Version", but not those followed by "Only" unless "Mac" also follows somewhere after "Only". This is likely to extract version information relevant to Mac users.
 // The first line that matches these conditions is then selected using 'head -1'.
 // Finally, 'sed' is used to extract the version number from the selected line by removing any non-numeric prefix and capturing the version number format (e.g., 1.2.3).
+
+
+//still can work as a template for future ideas
 curl -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15" -fs https://support.digiexam.se/hc/en-us/articles/7119593625628-Client-updates | perl -ne 'print if /Version/ && !/Only/ || /Version.*Mac/' | head -1 | sed -nre 's/^[^0-9]*(([0-9]+\.)*[0-9]+).*/\1/p'
 
 // This is the current solution the one on top used to work but no longer does due to cloudflare not allowing the curl command to work giving a 403 error.
