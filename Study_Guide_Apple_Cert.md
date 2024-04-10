@@ -3,7 +3,7 @@ Creating a study guide based on the provided questions will help you prepare for
 ### 1. SIP/XProtect
 - **Study Focus**: Understand what System Integrity Protection (SIP) and XProtect are, their roles in macOS security, and how they interact.
 - **Key Question**: What does XProtect do if it detects malware?
-  - **Answer**: XProtect scans downloaded apps and files for malware. If malware is detected, XProtect will prevent the app from launching and alert the user.
+  - **Answer**: XProtect scans downloaded apps and files for malware. If malware is detected, XProtect will prevent the app from launching, alert the user, and suggest they move it into the trash bin.
 
 ### 2. Rapid Security Response
 - **Study Focus**: Learn how Apple's Rapid Security Response works to provide security updates without needing a full OS update.
@@ -13,7 +13,7 @@ Creating a study guide based on the provided questions will help you prepare for
 ### 3. WiFi Preferences and Security Types
 - **Study Focus**: Understand how Apple devices choose WiFi networks, the order of preference, and the different security types (WPA3, WPA2, WEP, etc.).
 - **Key Question**: What does the caution symbol on a WiFi network mean?
-  - **Answer**: The caution symbol indicates a security issue with the WiFi network, such as using weak encryption (like WEP) or no encryption.
+  - **Answer**: The caution symbol indicates no internet available. The icon shows when the device can't be be assigned an IP address. Networks configured by MDM, Highest Wi-Fi standard, Frequency band (6GHz, then 5GHz, then 5GHz [DFS], then 2.4GHz), Security (WPA Enterprise, then WPA Personal, then WEP), Signal strength
 
 ### 4. iPhone Diagnostics
 - **Study Focus**: Learn where to find diagnostic files on an iPhone.
@@ -28,7 +28,7 @@ Creating a study guide based on the provided questions will help you prepare for
 ### 6. Revive/Restore via Apple Configurator
 - **Study Focus**: Understand how to use Apple Configurator to revive or restore Apple Silicon Macs.
 - **Key Question**: What are the steps to revive or restore a Mac using Apple Configurator?
-  - **Answer**: This involves connecting the Mac to another Mac running Apple Configurator, entering DFU mode, and then choosing either the revive or restore option in the Configurator.
+  - **Answer**: This involves connecting the Mac to another Mac running Apple Configurator, entering DFU mode, and then choosing either the revive or restore option in the Configurator. Action > Restore.
 
 ### 7. VPN and Device Management
 - **Study Focus**: Learn how VPNs are used in conjunction with device management on Apple devices.
@@ -84,5 +84,11 @@ Creating a study guide based on the provided questions will help you prepare for
 - **Study Focus**: Learn where passkeys are stored and how to manage them.
 - **Key Question**: Where are passkeys stored, and how can you delete one?
   - **Answer**: Passkeys are stored in iCloud Keychain. To delete one, go to Settings > Passwords, select the website, and then delete the passkey.
+
+### 18. System Integrity Protection (SIP)
+
+- **Study Focus**: Understand the concept of System Integrity Protection (SIP) in macOS, its purpose, and its impact on system security.
+- **Key Question**: What is System Integrity Protection (SIP) on macOS?
+  - **Answer**: System Integrity Protection (SIP) is a security feature designed to protect the system files, directories, and processes at the root level from being modified or tampered with by unauthorized sources. SIP restricts the power of the root user by preventing changes to protected parts of the macOS, even when an administrator executes these commands. This helps safeguard the system against malware and other security vulnerabilities by limiting access to critical system components. It can be disabled.
 
 This guide covers the baseline topics and questions for studying for the Apple Device Certification. Dive deep into each area, using Apple's official documentation and resources for the most accurate and up-to-date information.
