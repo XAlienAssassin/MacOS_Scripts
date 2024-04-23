@@ -64,6 +64,7 @@ Creating a study guide based on the provided questions will help you prepare for
 - **Study Focus**: Understand how to set up and troubleshoot Sidecar and Universal Control, ensuring devices meet the necessary requirements.
 - **Key Question**: What are common troubleshooting steps for Sidecar and Universal Control?
   - **Answer**: Ensure both devices are signed in with the same Apple ID, have Bluetooth and WiFi enabled, and meet the system requirements. For issues, check Display settings and restart devices.
+  - **Answer**: Sidecar now works on ios 17.1 and MacOS 14.1 with managed apple IDs
 
 ### 14. Paths to Settings for Mobile Configurations
 - **Study Focus**: Know how to navigate to specific settings for mobile configurations on an iPhone.
