@@ -23,6 +23,7 @@ if [ ! -z "$Username" ]; then
     echo "Deleted account: $Username"
 else
     echo "No username provided. Skipping account deletion."
+    exit 1
 fi
 
 # Set fields to empty value (" ")
