@@ -10,7 +10,22 @@
 curl -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15" -fs https://support.digiexam.se/hc/en-us/articles/7119593625628-Client-updates | perl -ne 'print if /Version/ && !/Only/ || /Version.*Mac/' | head -1 | sed -nre 's/^[^0-9]*(([0-9]+\.)*[0-9]+).*/\1/p'
 
 // This is the current solution the one on top used to work but no longer does due to cloudflare not allowing the curl command to work giving a 403 error.
-curl -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15" -e "https://support.digiexam.se/" -b "session=YOUR_COOKIE_VALUE" -fs "https://support.digiexam.se/hc/en-us/articles/7119593625628-Client-updates" | perl -ne 'print if /Version/ && !/Only/ || /Version.*Mac/' | head -1 | \sed -nre 's/^[^0-9]*(([0-9]+\.)*[0-9]+).*/\1/p'
-
+curl -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15" -e "https://support.digiexam.se/" -b "session=YOUR_COOKIE_VALUE" -fs "https://support.digiexam.se/hc/en-us/articles/7119593625628-Client-updates" | perl -ne 'print if /Version.*Mac/' | head -1 | sed -nre 's/^[^0-9]*(([0-9]+\.)*[0-9]+).*/\1/p'
 // **When "Only" is present**: If a line includes "Only", it would be excluded by the `/Version/ && !/Only/` condition. However, if the line also contains "Mac" (indicating it's relevant for Mac users), the `/Version.*Mac/` condition ensures that it's still selected. This part of the command specifically targets version updates that are applicable to Mac, even if they're marked with "Only" (as long as "Mac" is also mentioned).
 // **When "Only" is not present**: The condition `/Version/ && !/Only/` will be true for any line that contains "Version" and does not contain "Only". This means that if a version update is listed without specifying "Only" (implying it's not exclusive to a particular platform), it will still be selected by this part of the command.
+
+
+curl -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15" -fs https://support.digiexam.se/hc/en-us/articles/7119593625628-Client-updates | perl -ne 'print if /Version.*Mac/ && !/Chromebook/' | head -1 | sed -nre 's/^[^0-9]*(([0-9]+\.)*[0-9]+).*/\1/p'
+
+
+
+# Extract the latest version using the specified curl command with a timeout of 10 seconds
+latest_version=$(curl -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15" -e "https://support.digiexam.se/" -b "session=YOUR_COOKIE_VALUE" -fs "https://support.digiexam.se/hc/en-us/articles/7119593625628-Client-updates" --max-time 10 | perl -ne 'print if /Version.Mac/' | head -1 | sed -nre 's/^[^0-9](([0-9]+\.)[0-9]+)./\1/p')
+# Check if the curl command failed (took longer than 10 seconds)
+if [ $? -ne 0 ]; then
+echo "<result>Curl command failed. Unable to retrieve the latest version.</result>"
+else
+# Check if the latest version is empty (curl command failed)
+if [ -z "$latest_version" ]; then
+echo "<result>Curl command failed. Unable to retrieve the latest version.</result>"
+else

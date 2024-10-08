@@ -3,3 +3,16 @@ scp Casper@$remote_ip:/Library/Management/super/logs/super.log "/Users/medinao/D
 
 remote_ip="fvfj2alrq6lr"
 scp Casper@$remote_ip:/private/var/log/jamf.log "/Users/medinao/Downloads/SSH_Files/Jamf_Logs_$(ssh Casper@$remote_ip 'system_profiler SPHardwareDataType | awk "/Serial/ {print \$4}"').log"
+
+remote_ip="10.30.8.145"
+scp medinao@$remote_ip:/Users/medinao/Desktop/projector.txt "/Users/medinao/Downloads/SSH_Files/Projector.txt"
+
+
+
+
+2024-09-30 09:20:55 : DEBUG : digiexam : DEBUG mode 1 enabled.
+2024-09-30 09:20:55 : INFO  : digiexam : SwiftDialog is not installed, clear cmd file var
+2024-09-30 09:20:55 : INFO  : digiexam : setting variable from argument DEBUG=0
+2024-09-30 09:20:55 : INFO  : digiexam : setting variable from argument NOTIFY=silent
+2024-09-30 09:20:55 : INFO  : digiexam : setting variable from argument REOPEN=yes
+2024-09-30 09:20:55 : DEBUG : digiexam : name=Digiexam
