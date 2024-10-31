@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaspersky Cybermap</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            overflow: hidden;
+        }
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            pointer-events: none;
+            animation: moveStars 7s linear infinite;
+        }
+        @keyframes moveStars {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-50%);
+            }
+        }
+        iframe {
+            border: none;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <!-- Insert this tag where you want the widget to render -->
+    <iframe width="900" height="900" src="https://cybermap.kaspersky.com/en/widget/dynamic/dark">
+    </iframe>
+
+    <script>
+        function createStar() {
+            const star = document.createElement('div');
+            star.style.position = 'absolute';
+            star.style.width = '2px';
+            star.style.height = '2px';
+            star.style.background = 'white';
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.opacity = Math.random();
+            return star;
+        }
+
+        const starsContainer = document.querySelector('.stars');
+        const totalStars = 1500;
+
+        function generateStars(container, startX, endX) {
+            for (let i = 0; i < totalStars / 2; i++) {
+                const star = createStar();
+                star.style.left = `${startX + Math.random() * (endX - startX)}%`;
+                container.appendChild(star);
+            }
+        }
+
+        // Generate stars for the first half
+        generateStars(starsContainer, 0, 100);
+        // Generate stars for the second half (exact copy of the first half)
+        generateStars(starsContainer, 100, 200);
+    </script>
+</body>
+</html>
