@@ -15,7 +15,7 @@ UserPlist=$LoggedInUserHome/Library/Preferences/com.apple.dock.plist
 
 ############################################################
 
-exec > /Users/$loggedInUser/docklog.txt 2>&1
+exec > /Users/$loggedInUser/.docklog.txt 2>&1
 
 #Log the Variables
 echo dockutil-variable = $dockutil
@@ -25,7 +25,7 @@ echo loggedInUser-variable = $loggedInUser
 ############################################################
 
 #Check to see if Dock has been built already
-dockscrap=/Users/$loggedInUser/dockscrap.txt
+dockscrap=/Users/$loggedInUser/.dockscrap.txt
 echo "The dockscrap file is set to" $dockscrap
 
 if [ -f $dockscrap ]; then
@@ -55,6 +55,6 @@ echo "Restarting Dock..."
 $killall Dock
 
 #Create the dockscrap file
-touch /Users/$loggedInUser/dockscrap.txt
+touch /Users/$loggedInUser/.dockscrap.txt
 
 exit 0
