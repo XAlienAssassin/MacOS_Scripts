@@ -7,7 +7,7 @@ sleep=/bin/sleep
 
 #Variables
 ############################################################
-
+dockutil="/usr/local/bin/dockutil"
 killall="/usr/bin/killall"
 loggedInUser=$( ls -l /dev/console | awk '{print $3}' )
 LoggedInUserHome="/Users/$loggedInUser"
