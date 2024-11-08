@@ -68,6 +68,7 @@ SEARCH_TEXT_2='
 SEARCH_TEXT_3='
             "file-label" = "Google Chrome";
 '
+$sleep 2
 
 while [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_1"* ]] || \
       [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_2"* ]] || \
