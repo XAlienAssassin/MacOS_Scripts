@@ -17,10 +17,10 @@ SEARCH_TEXT_3='
 PLIST_CONTENTS=$(defaults read com.apple.dock persistent-apps)
 
 # Check if all three snippets of text are present in the plist content
-if [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_1"* ]] && \
-   [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_2"* ]] && \
-   [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_3"* ]]; then
-  echo "<result>Enabled</result>"
+if [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_1"* ]] || \
+   [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_2"* ]] || \
+   [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_3"* ]]; then
+  echo "<result>Dock is wrong</result>"
 else
-  echo "<result>Not Enabled</result>"
+  echo "<result>Enabled</result>"
 fi

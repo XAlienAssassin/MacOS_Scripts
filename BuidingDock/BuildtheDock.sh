@@ -54,12 +54,25 @@ $dockutil --add '/Applications/Google Chrome.app' --no-restart $UserPlist
 echo "Restarting Dock..."
 $killall Dock
 
-# Check if both Launchpad and Self Service are in the dock, if not, redo the dock additions
-if ! plutil -convert xml1 ~/Library/Preferences/com.apple.dock.plist -o - | grep -q "file:///Applications/Launchpad.app/" || \
-   ! plutil -convert xml1 ~/Library/Preferences/com.apple.dock.plist -o - | grep -q "file:///Applications/Self%20Service.app/" || \
-   ! plutil -convert xml1 ~/Library/Preferences/com.apple.dock.plist -o - | grep -q "<key>file-label</key>
-				<string>Google Chrome Beta</string>"; then
-    echo "Launchpad, Self Service, or Google Chrome Beta not found in dock, redoing dock additions..."
+# Check if Safari, Self Service, and Google Chrome are in the dock, if not, redo the dock additions
+PLIST_CONTENTS=$(defaults read com.apple.dock persistent-apps)
+
+SEARCH_TEXT_1='
+            "file-label" = Safari;
+'
+
+SEARCH_TEXT_2='
+            "file-label" = "Self Service";
+'
+
+SEARCH_TEXT_3='
+            "file-label" = "Google Chrome";
+'
+
+if [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_1"* ]] || \
+   [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_2"* ]] || \
+   [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_3"* ]]; then
+    echo "Safari, Self Service, or Google Chrome not found in dock, redoing dock additions..."
     $dockutil --add '~/Downloads' --section others --view auto --display folder --no-restart $UserPlist
     $dockutil --add '/System/Applications/Launchpad.app' --no-restart $UserPlist 
     $dockutil --add '/System/Applications/System Settings.app' --no-restart $UserPlist
