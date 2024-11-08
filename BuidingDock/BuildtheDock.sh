@@ -54,6 +54,21 @@ $dockutil --add '/Applications/Google Chrome.app' --no-restart $UserPlist
 echo "Restarting Dock..."
 $killall Dock
 
+# Check if both Launchpad and Self Service are in the dock, if not, redo the dock additions
+if ! plutil -convert xml1 ~/Library/Preferences/com.apple.dock.plist -o - | grep -q "file:///Applications/Launchpad.app/" || \
+   ! plutil -convert xml1 ~/Library/Preferences/com.apple.dock.plist -o - | grep -q "file:///Applications/Self%20Service.app/" || \
+   ! plutil -convert xml1 ~/Library/Preferences/com.apple.dock.plist -o - | grep -q "<key>file-label</key>
+				<string>Google Chrome Beta</string>"; then
+    echo "Launchpad, Self Service, or Google Chrome Beta not found in dock, redoing dock additions..."
+    $dockutil --add '~/Downloads' --section others --view auto --display folder --no-restart $UserPlist
+    $dockutil --add '/System/Applications/Launchpad.app' --no-restart $UserPlist 
+    $dockutil --add '/System/Applications/System Settings.app' --no-restart $UserPlist
+    $dockutil --add '/Applications/Self Service.app' --no-restart $UserPlist
+    $dockutil --add '/Applications/Safari.app' --no-restart $UserPlist
+    $dockutil --add '/Applications/Google Chrome.app' --no-restart $UserPlist
+    $killall Dock
+fi
+
 #Create the dockscrap file
 touch /Users/$loggedInUser/.dockscrap.txt
 
