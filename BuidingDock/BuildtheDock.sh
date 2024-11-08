@@ -69,9 +69,9 @@ SEARCH_TEXT_3='
             "file-label" = "Google Chrome";
 '
 
-if [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_1"* ]] || \
-   [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_2"* ]] || \
-   [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_3"* ]]; then
+while [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_1"* ]] || \
+      [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_2"* ]] || \
+      [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_3"* ]]; do
     echo "Safari, Self Service, or Google Chrome not found in dock, redoing dock additions..."
     $dockutil --add '~/Downloads' --section others --view auto --display folder --no-restart $UserPlist
     $dockutil --add '/System/Applications/Launchpad.app' --no-restart $UserPlist 
@@ -80,7 +80,8 @@ if [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_1"* ]] || \
     $dockutil --add '/Applications/Safari.app' --no-restart $UserPlist
     $dockutil --add '/Applications/Google Chrome.app' --no-restart $UserPlist
     $killall Dock
-fi
+    PLIST_CONTENTS=$(defaults read com.apple.dock persistent-apps)
+done
 
 #Create the dockscrap file
 touch /Users/$loggedInUser/.dockscrap.txt
