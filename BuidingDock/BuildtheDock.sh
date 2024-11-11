@@ -58,15 +58,15 @@ $killall Dock
 PLIST_CONTENTS=$(defaults read com.apple.dock persistent-apps)
 
 SEARCH_TEXT_1='
-            "file-label" = Safari;
+            "bundle-identifier" = "com.apple.Safari";
 '
 
 SEARCH_TEXT_2='
-            "file-label" = "Self Service";
+            "bundle-identifier" = "com.jamfsoftware.selfservice.mac";
 '
 
 SEARCH_TEXT_3='
-            "file-label" = "Google Chrome";
+            "bundle-identifier" = "com.google.Chrome";
 '
 $sleep 2
 
