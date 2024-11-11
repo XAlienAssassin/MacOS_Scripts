@@ -54,24 +54,27 @@ $dockutil --add '/Applications/Google Chrome.app' --no-restart $UserPlist
 echo "Restarting Dock..."
 $killall Dock
 
+$sleep 2
+
 # Check if Safari, Self Service, and Google Chrome are in the dock, if not, redo the dock additions
 PLIST_CONTENTS=$(defaults read com.apple.dock persistent-apps)
 
 SEARCH_TEXT_1='
-            "bundle-identifier" = "com.apple.Safari";
+            "file-label" = Safari;
 '
 
 SEARCH_TEXT_2='
-            "bundle-identifier" = "com.jamfsoftware.selfservice.mac";
+            "file-label" = "Self Service";
 '
 
 SEARCH_TEXT_3='
-            "bundle-identifier" = "com.google.Chrome";
+            "file-label" = "Google Chrome";
 '
+
 $sleep 2
 
-while [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_1"* ]] || \
-      [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_2"* ]] || \
+while [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_1"* ]] && \
+      [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_2"* ]] && \
       [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_3"* ]]; do
     echo "Safari, Self Service, or Google Chrome not found in dock, redoing dock additions..."
     $dockutil --add '~/Downloads' --section others --view auto --display folder --no-restart $UserPlist
