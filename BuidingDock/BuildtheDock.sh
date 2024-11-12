@@ -44,48 +44,66 @@ echo "------------------------------------------------------------------------"
 echo "Removing all Items from the Logged-In User's Dock..."
 $dockutil --remove all --no-restart $UserPlist
 $sleep 2
-echo "Creating New Dock..."
-$dockutil --add '~/Downloads' --section others --view auto --display folder --no-restart $UserPlist
-$dockutil --add '/System/Applications/Launchpad.app' --no-restart $UserPlist
-$dockutil --add '/System/Applications/System Settings.app' --no-restart $UserPlist
-$dockutil --add '/Applications/Self Service.app' --no-restart $UserPlist
-$dockutil --add '/Applications/Safari.app' --no-restart $UserPlist
-$dockutil --add '/Applications/Google Chrome.app' --no-restart $UserPlist
-echo "Restarting Dock..."
-$killall Dock
 
-$sleep 2
-
-# Check if Safari, Self Service, and Google Chrome are in the dock, if not, redo the dock additions
-PLIST_CONTENTS=$(defaults read com.apple.dock persistent-apps)
-
-SEARCH_TEXT_1='
-            "file-label" = Safari;
-'
-
-SEARCH_TEXT_2='
-            "file-label" = "Self Service";
-'
-
-SEARCH_TEXT_3='
-            "file-label" = "Google Chrome";
-'
-
-$sleep 2
-
-while [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_1"* ]] && \
-      [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_2"* ]] && \
-      [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_3"* ]]; do
-    echo "Safari, Self Service, or Google Chrome not found in dock, redoing dock additions..."
+function create_dock {
+    echo "Creating New Dock..."
     $dockutil --add '~/Downloads' --section others --view auto --display folder --no-restart $UserPlist
-    $dockutil --add '/System/Applications/Launchpad.app' --no-restart $UserPlist 
+    $dockutil --add '/System/Applications/Launchpad.app' --no-restart $UserPlist
     $dockutil --add '/System/Applications/System Settings.app' --no-restart $UserPlist
     $dockutil --add '/Applications/Self Service.app' --no-restart $UserPlist
     $dockutil --add '/Applications/Safari.app' --no-restart $UserPlist
     $dockutil --add '/Applications/Google Chrome.app' --no-restart $UserPlist
+    echo "Restarting Dock..."
     $killall Dock
+    $sleep 2
+}
+
+function check_dock {
     PLIST_CONTENTS=$(defaults read com.apple.dock persistent-apps)
+
+    SEARCH_TEXT_1='
+                "file-label" = Safari;
+    '
+
+    SEARCH_TEXT_2='
+                "file-label" = "Self Service";
+    '
+
+    SEARCH_TEXT_3='
+                "file-label" = "Google Chrome";
+    '
+
+    if [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_1"* ]] && \
+       [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_2"* ]] && \
+       [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_3"* ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Set the maximum number of attempts to create the correct dock
+max_attempts=5
+# Initialize the attempt counter
+attempt=1
+
+# Loop until the dock is created correctly or the maximum number of attempts is reached
+while ! check_dock && [ $attempt -le $max_attempts ]; do
+    # Print a message indicating the attempt number and the reason for recreating the dock
+    echo "Attempt $attempt: Safari, Self Service, or Google Chrome not found in dock, recreating dock..."
+    # Call the create_dock function to recreate the dock
+    create_dock
+    # Increment the attempt counter
+    ((attempt++))
 done
+
+# Check if the maximum number of attempts was exceeded
+if [ $attempt -gt $max_attempts ]; then
+    # Print an error message indicating the failure to create the correct dock
+    echo "Failed to create the correct dock after $max_attempts attempts. Exiting."
+    # Exit the script with a non-zero status code to indicate an error
+    exit 1
+fi
 
 #Create the dockscrap file
 touch /Users/$loggedInUser/.dockscrap.txt
