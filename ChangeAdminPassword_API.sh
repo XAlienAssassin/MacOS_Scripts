@@ -5,7 +5,7 @@ user=""
 # API PASSWORD
 pass=""
 # URL (https://yourjamfserver.jamfcloud.com)
-jurl=""
+jamfUrl=""
 # Smart group or static group ID to get computer IDs from
 groupID="408"
 # Define the admin user name
@@ -16,7 +16,7 @@ newPassword=""
 
 # Get Bearer token for API calls
 getBearerToken() {
-    response=$(curl -s -u "$user:$pass" "$jurl/api/v1/auth/token" -X POST)
+    response=$(curl -s -u "$user:$pass" "$jamfUrl/api/v1/auth/token" -X POST)
     token=$(echo "$response" | plutil -extract token raw -)
     tokenExpiration=$(echo "$response" | plutil -extract expires raw - | awk -F . '{print $1}')
     tokenExpirationEpoch=$(date -j -f "%Y-%m-%dT%T" "$tokenExpiration" +"%s")
@@ -25,8 +25,8 @@ getBearerToken() {
 
 # Invalidate the token once done
 invalidateToken() {
-    curl -w "%{http_code}" -H "Authorization: Bearer $token" "$jurl/api/v1/auth/invalidate-token" -X POST -s -o /dev/null
-    echo "Token invalidated."
+    curl -w "%{http_code}" -H "Authorization: Bearer $token" "$jamfUrl/api/v1/auth/invalidate-token" -X POST -s -o /dev/null
+    echo "\nToken invalidated."
 }
 
 # Check token expiration and get a new one if necessary
@@ -45,7 +45,7 @@ getBearerToken
 
 # Grab all computer IDs from the smart group (ID 802)
 echo "Fetching computer IDs from group ID: $groupID"
-computerids=($(curl -s $jurl/JSSResource/computergroups/id/$groupID \
+computerids=($(curl -s $jamfUrl/JSSResource/computergroups/id/$groupID \
 -H 'accept: application/xml' \
 -H "Authorization: Bearer $token" | xmllint --xpath '/computer_group/computers/computer/id/text()' -))
 
@@ -56,7 +56,7 @@ for id in "${computerids[@]}"; do
     checkTokenExpiration
     
     # Get computer details to retrieve the managementId
-    computerInfo=$(curl -s "$jurl/api/v1/computers-inventory/$id" \
+    computerInfo=$(curl -s "$jamfUrl/api/v1/computers-inventory/$id" \
         -H 'accept: application/json' \
         -H "Authorization: Bearer $token")
 
@@ -72,7 +72,7 @@ for id in "${computerids[@]}"; do
     
 
     # Reset the LAPS password for the macadmin user using the correct API endpoint
-    curl -s -X PUT "$jurl/api/v2/local-admin-password/$managementId/set-password" \
+    curl -s -X PUT "$jamfUrl/api/v2/local-admin-password/$managementId/set-password" \
         -H "accept: application/json" \
         -H "Authorization: Bearer $token" \
         -H "Content-Type: application/json" \
