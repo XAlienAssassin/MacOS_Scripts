@@ -1,18 +1,22 @@
 #!/bin/bash
 
-# API USER
+# Log file path
+logFile="g"
+
+# Redirect stdout and stderr to the log file
+exec > "$logFile" 2>&1
+
 user=""
 # API PASSWORD
 pass=""
 # URL (https://yourjamfserver.jamfcloud.com)
 jamfUrl=""
 # Smart group or static group ID to get computer IDs from
-groupID="408"
+groupID=""
 # Define the admin user name
 adminname=""
 # New LAPS password to set
-newPassword=""  
-
+newPassword=""
 
 # Get Bearer token for API calls
 getBearerToken() {
@@ -77,6 +81,15 @@ for id in "${computerids[@]}"; do
         -H "Authorization: Bearer $token" \
         -H "Content-Type: application/json" \
         -d "{\"lapsUserPasswordList\": [{\"username\": \"$adminname\", \"password\": \"$newPassword\"}]}" || echo "Failed to reset LAPS password for computer $id with Management ID: $managementId"
+
+    # Check administrator password for computer
+    administratorPasswd=$(curl -s "$jamfUrl/api/v2/local-admin-password/$managementId/account/Administrator/password" \
+        -H 'accept: application/json' \
+        -H "Authorization: Bearer $token")
+
+    # Echo Password
+    echo "Administrator password: $administratorPasswd"
+
 
 done
 
