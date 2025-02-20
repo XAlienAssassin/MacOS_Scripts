@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Log file path
-logFile="g"
+logFile="/Users/medinao/Downloads/ChangeAdminPassword_API.log"
 
 # Redirect stdout and stderr to the log file
 exec > "$logFile" 2>&1
