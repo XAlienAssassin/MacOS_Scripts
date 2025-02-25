@@ -1,7 +1,7 @@
 #!/bin/bash
 user=""
 # API PASSWORD
-pass=""
+pass="" 
 # URL (https://yourjamfserver.jamfcloud.com)
 jamfUrl=""
 # New LAPS password to set
@@ -24,25 +24,11 @@ getBearerToken() {
 # Invalidate the token once done
 invalidateToken() {
     curl -w "%{http_code}" -H "Authorization: Bearer $token" "$jamfUrl/api/v1/auth/invalidate-token" -X POST -s -o /dev/null
-    echo "\nToken invalidated."
-}
-
-# Check token expiration and get a new one if necessary
-checkTokenExpiration() {
-    nowEpochUTC=$(date -j -f "%Y-%m-%dT%T" "$(date -u +"%Y-%m-%dT%T")" +"%s")
-    if [[ tokenExpirationEpoch -gt nowEpochUTC ]]; then
-        echo "Token is valid."
-    else
-        echo "Token expired, fetching new token."
-        getBearerToken
-    fi
+    echo $'\nToken invalidated.'
 }
 
 # Run the function to get the token
 getBearerToken
-
-# Check if Secure Token is enabled for the administrator
-secureTokenStatus=$(sysadminctl -secureTokenStatus administrator)
 
 #Check the UUID of the Computer
 UUID=$(ioreg -rd1 -c IOPlatformExpertDevice | awk -F'"' '/IOPlatformUUID/{print $4}')
@@ -56,39 +42,50 @@ computerInfo=$(curl -s "$jamfUrl/api/v1/computers-inventory/$id" \
     -H 'accept: application/json' \
     -H "Authorization: Bearer $token")
 
-
-# Extract the managementId using jq
-managementId=$(jq -r '.general.managementId' <<< "$computerInfo")    
+# Extract the managementId using plutil
+managementId=$(echo "$computerInfo" | plutil -extract general.managementId raw -)
 
 if [[ -z "$managementId" || "$managementId" == "null" ]]; then
     echo "No management ID found for computer $id, skipping..."
-    continue
+    exit 1
 fi
 
 echo "Found Management ID: $managementId for computer $id"
 
-
 administratorPasswd=$(curl -s "$jamfUrl/api/v2/local-admin-password/$managementId/account/Administrator/password" \
     -H 'accept: application/json' \
-    -H "Authorization: Bearer $token" | jq -r '.password')
+    -H "Authorization: Bearer $token" | plutil -extract password raw -)
 
 # Echo Password
 echo "Administrator password: $administratorPasswd"
 
-# If $administratorPasswd is empty, use $adminPassword instead
-if [[ -z "$administratorPasswd" ]]; then
+# If $administratorPasswd says "<stdin>: Could not extract value, error: No value at that key path or invalid key path: password", use $adminPassword instead
+if [[ "$administratorPasswd" == *"Could not extract value, error: No value at that key path or invalid key path: password"* ]]; then
     administratorPasswd="$adminPassword"
+else 
+    adminPassword=$5
 fi
 
-# If Secure Token is ENABLED for the administrator, transfer it to the user
-if [[ $secureTokenStatus == *"Secure Token is ENABLED"* ]]; then
-    sysadminctl -adminUser "$adminUser" -adminPassword "$administratorPasswd" -secureTokenOn $userName -password $userPassword
+secureTokenUsers=()
+
+while IFS= read -r user; do
+    status=$(sysadminctl -secureTokenStatus "$user" 2>&1)
+    if echo "$status" | grep -q "Secure token is ENABLED"; then
+        secureTokenUsers+=("$user")
+    fi
+done < <(dscl . -list /Users | grep -v '^_')
+
+if [[ ${#secureTokenUsers[@]} -eq 1 && "${secureTokenUsers[0]}" == "$adminUser" ]]; then
+    sysadminctl -adminUser "$adminUser" -adminPassword "$adminPassword" -secureTokenOn "$userName" -password "$userPassword"
 else
-    echo "No need to transfer Secure Token"
-    exit 1
+    echo "No need to transfer Secure Token another account is enabled"
 fi
 
 # Invalidate the token when done
 invalidateToken
 
 exit 0
+
+
+
+sudo sysadminctl -adminUser 'administrator' -adminPassword 'EGLPJT-QIYI3K-GMT3W5-BC5WOSCE' -secureTokenOn 'administrator1' -password 'S@intAppleSc0ts!!'
