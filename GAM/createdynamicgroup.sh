@@ -27,5 +27,5 @@ groups=(
 for group in "${groups[@]}"; do
     echo "Processing: $group"
     $GAM_PATH update group "$group" includeinglobaladdresslist false
-    echo "------------------------"
+    echo "-------------
 done
