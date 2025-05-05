@@ -44,7 +44,7 @@ echo "Using GAM at: $GAM_PATH"
 # Google Sheet ID
 SHEET_ID="1Pp2GdEdpzEMaBeiMs5btF69Z64N29HjpqcBMU3udplA"
 # Sheet GID (specific sheet within the spreadsheet)
-SHEET_GID="1290103477"
+SHEET_GID="743137193"
 # Direct export URL for CSV
 CSV_EXPORT_URL="https://docs.google.com/spreadsheets/d/$SHEET_ID/export?format=csv&gid=$SHEET_GID"
 CSV_DIR="/Library/Google Sheets CSV"
