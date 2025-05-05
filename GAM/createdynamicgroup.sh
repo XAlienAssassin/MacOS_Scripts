@@ -18,14 +18,14 @@ echo "Using GAM at: $GAM_PATH"
 
 # Define an array of groups to process
 groups=(
-    "Casper-Department-Lower-School-Students@saintandrews.net"
-    "Casper-Department-Middle-School-Students@saintandrews.net"
-    "Casper-Department-Upper-School-Students@saintandrews.net"
+    "vpn_admissions@saintandrews.net"
+    "vpn_advancement@saintandrews.net"
+    "vpn_security@saintandrews.net"
 )
 
 # Loop through each group and update it
 for group in "${groups[@]}"; do
     echo "Processing: $group"
     $GAM_PATH update group "$group" includeinglobaladdresslist false
-    echo "-------------
+    echo "-------------"
 done
