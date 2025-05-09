@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Make time for other stuff to finish
-/bin/sleep 5
+/bin/sleep 3
 
 sleep=/bin/sleep
 
@@ -43,7 +43,7 @@ echo "Current logged-in user: $loggedInUser"
 echo "------------------------------------------------------------------------"
 echo "Removing all Items from the Logged-In User's Dock..."
 $dockutil --remove all --no-restart $UserPlist
-$sleep 10
+$sleep 5
 
 function create_dock {
     echo "Creating New Dock..."
@@ -54,7 +54,7 @@ function create_dock {
     $dockutil --add '/Applications/Safari.app' --no-restart $UserPlist
     $dockutil --add '/Applications/Google Chrome.app' --no-restart $UserPlist
     echo "Restarting Dock..."
-    $sleep 10
+    $sleep 5
     $killall Dock
     $sleep 5
 }
@@ -73,10 +73,19 @@ function check_dock {
     SEARCH_TEXT_3='
             "file-label" = "Google Chrome";
     '
+    
+    SEARCH_TEXT_4='
+            "file-label" = Notes;
+    '
 
     if [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_1"* ]] && \
        [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_2"* ]] && \
        [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_3"* ]]; then
+        # Check if Notes is in the dock - if it is, we need to rebuild
+        if [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_4"* ]]; then
+            echo "Notes app found in dock, need to rebuild"
+            return 1
+        fi
         return 0
     else
         return 1
