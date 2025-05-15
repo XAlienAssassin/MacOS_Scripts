@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Make time for other stuff to finish
-/bin/sleep 3
+/bin/sleep 10
 
 sleep=/bin/sleep
 
@@ -43,7 +43,7 @@ echo "Current logged-in user: $loggedInUser"
 echo "------------------------------------------------------------------------"
 echo "Removing all Items from the Logged-In User's Dock..."
 $dockutil --remove all --no-restart $UserPlist
-$sleep 5
+$sleep 3
 
 function create_dock {
     echo "Creating New Dock..."
@@ -54,9 +54,9 @@ function create_dock {
     $dockutil --add '/Applications/Safari.app' --no-restart $UserPlist
     $dockutil --add '/Applications/Google Chrome.app' --no-restart $UserPlist
     echo "Restarting Dock..."
-    $sleep 5
+    $sleep 2
     $killall Dock
-    $sleep 5
+    $sleep 2
 }
 
 function check_dock {
@@ -101,15 +101,6 @@ attempt=1
 while ! check_dock && [ $attempt -le $max_attempts ]; do
     # Print a message indicating the attempt number and the reason for recreating the dock
     echo "Attempt $attempt: Safari, Self Service, or Google Chrome not found in dock, recreating dock..."
-    
-    # If this is the second or later attempt, kill the Dock first
-    if [ $attempt -gt 1 ]; then
-        $dockutil --remove all --no-restart $UserPlist
-        $sleep 5
-        $killall Dock
-        $sleep 5
-    fi
-    
     # Call the create_dock function to recreate the dock
     create_dock
     # Sleep for 1 second before the next attempt
