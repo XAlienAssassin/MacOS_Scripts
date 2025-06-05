@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Make time for other stuff to finish
-/bin/sleep 1
+/bin/sleep 5
 
 # Variables
 ############################################################
@@ -65,21 +65,20 @@ done
 # Create the assigntologin file
 touch /Users/$loggedInUser/.assigntologincheck.txt
 
+# Check if the user should be assigned to JAMF
 if [[ $should_assign -eq 1 ]]; then
-    ################################################################################
+################################################################################
     # Use Jamf policy trigger to assign $loggedInUser to JAMF
-    ################################################################################
-    jamf_output=$(jamf policy -event UserAssignment -username "$loggedInUser")
+################################################################################
+    jamf_output=$(sudo jamf policy -event UserAssignment -username "$loggedInUser")
     echo "$jamf_output"
     if echo "$jamf_output" | grep -q 'No policies were found for the "UserAssignment" trigger.' || \
        echo "$jamf_output" | grep -q 'Connection failure: "The network connection was lost."'; then
-        echo "No policies found for UserAssignment trigger. Deleting $assigntologin."
+        echo "Jamf output indicates no policy or connection failure. Removing assigned login file."
         rm -f "$assigntologin"
     fi
 else
     echo "User '$loggedInUser' is in the exclusion list. Skipping Jamf policy assignment."
 fi
-
-################################################################################
 
 exit 0
