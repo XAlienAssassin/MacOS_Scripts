@@ -43,10 +43,11 @@ echo "Current logged-in user: $loggedInUser"
 echo "------------------------------------------------------------------------"
 echo "Removing all Items from the Logged-In User's Dock..."
 $dockutil --remove all --no-restart $UserPlist
-$sleep 3
+$sleep 1
 
 function create_dock {
     echo "Creating New Dock..."
+    $dockutil --remove all --no-restart $UserPlist
     $dockutil --add '~/Downloads' --section others --view auto --display folder --no-restart $UserPlist
     $dockutil --add '/System/Applications/Launchpad.app' --no-restart $UserPlist
     $dockutil --add '/System/Applications/System Settings.app' --no-restart $UserPlist
@@ -54,7 +55,7 @@ function create_dock {
     $dockutil --add '/Applications/Safari.app' --no-restart $UserPlist
     $dockutil --add '/Applications/Google Chrome.app' --no-restart $UserPlist
     echo "Restarting Dock..."
-    $sleep 2
+    $sleep 1
     $killall Dock
     $sleep 2
 }
@@ -104,7 +105,7 @@ while ! check_dock && [ $attempt -le $max_attempts ]; do
     # Call the create_dock function to recreate the dock
     create_dock
     # Sleep for 1 second before the next attempt
-    $sleep 1
+    $sleep 2
     # Increment the attempt counter
     ((attempt++))
 done
