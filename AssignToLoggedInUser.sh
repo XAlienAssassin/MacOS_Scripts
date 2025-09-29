@@ -72,7 +72,7 @@ if [[ $should_assign -eq 1 ]]; then
 ################################################################################
     jamf_output=$(sudo jamf policy -event UserAssignment -username "$loggedInUser")
     echo "$jamf_output"
-    if echo "$jamf_output" | grep -q 'No policies were found for the "UserAssignment" trigger.' || \
+    if echo "$jamf_output" | grep -q 'Could not connect to the JSS. Looking for cached policies' || \
        echo "$jamf_output" | grep -q 'Connection failure: "The network connection was lost."'; then
         echo "Jamf output indicates no policy or connection failure. Removing assigned login file."
         rm -f "$assigntologin"

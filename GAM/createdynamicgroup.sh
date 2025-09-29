@@ -18,7 +18,7 @@ echo "Using GAM at: $GAM_PATH"
 
 # Define an array of groups to process
 groups=(
-    "vpn_business_office@saintandrews.net"
+    "oriontestgroup@saintandrews.net"
 )
 
 # Loop through each group and update it
