@@ -103,7 +103,6 @@ for id in "${computer_ids[@]}"; do
     # Extract the managementId using sed corrected method
     managementId=$(echo "$computerInfo" | sed -n '/declarativeDeviceManagementEnabled.*true/{N;N;s/.*"managementId" : "\([^"]*\)".*/\1/p;}')
 
-    # Debug: Show what jq extracted
     echo "Extracted managementId: '$managementId'"
  
     if [[ -z "$managementId" || "$managementId" == "null" ]]; then
