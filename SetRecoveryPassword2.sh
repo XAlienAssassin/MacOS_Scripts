@@ -1,7 +1,7 @@
 #!/bin/bash
 # Create a timestamped log file name
 timestamp=$(date +"%Y%m%d_%H%M%S")
-logFile="/Library/Logs/Wipe_Computers_${timestamp}.log"
+logFile="/Library/Logs/SetRecoveryPassword_${timestamp}.log"
 
 # Set up logging to both file and terminal
 # Create the log file
@@ -33,33 +33,54 @@ read -s -u 3 apipass
 echo "Enter the Advanced Computer Search ID: "
 read -u 3 advancedSearchID
 echo "Enter the recovery password to set: "
-read -s -u 3 recoveryPassword
+read -u 3 recoveryPassword
 echo
 
 # URL (https://yourjamfserver.jamfcloud.com)
 jssURL="https://macapps.saintandrews.net:8443"
 
-# Get the Bearer Token
-echo "Authenticating with Jamf API..."
-token_response=$(curl -s -u "${apiuser}:${apipass}" -X POST "${jssURL}/api/v1/auth/token")
-bearer_token=$(echo "$token_response" | awk -F'"' '/token/{print $4}')
+# Function to get a Bearer Token
+getBearerToken() {
+    echo "Fetching bearer token..."
+    token_response=$(curl -s -u "${apiuser}:${apipass}" -X POST "${jssURL}/api/v1/auth/token" 2>&1)
+    bearer_token=$(echo "$token_response" | awk -F'"' '/token/{print $4}')
+    token_expires=$(echo "$token_response" | awk -F'"' '/"expires"/{print $4}')
+    
+    # Check if authentication was successful
+    if [[ -z "$bearer_token" ]]; then
+        echo "ERROR: Failed to authenticate with Jamf API. Please check your credentials and URL."
+        exit 1
+    fi
+    
+    # Convert the expiration time to epoch
+    # The expires time is in ISO 8601 format with milliseconds: 2025-10-03T10:30:00.000Z
+    tokenExpirationEpoch=$(date -j -f "%Y-%m-%dT%H:%M:%S" "${token_expires%.*}" +"%s")
+    
+    echo "Token acquired. Expires at: $token_expires"
+}
 
 # Invalidate the token once done
 invalidateToken() {
-    curl -w "%{http_code}" -H "Authorization: Bearer $bearer_token" "$jamfUrl/api/v1/auth/invalidate-token" -X POST -s -o /dev/null
+    curl -w "%{http_code}" -H "Authorization: Bearer $bearer_token" "$jssURL/api/v1/auth/invalidate-token" -X POST -s -o /dev/null
     echo "\nToken invalidated."
 }
 
 # Check token expiration and get a new one if necessary
 checkTokenExpiration() {
-    nowEpochUTC=$(date -j -f "%Y-%m-%dT%T" "$(date -u +"%Y-%m-%dT%T")" +"%s")
-    if [[ tokenExpirationEpoch -gt nowEpochUTC ]]; then
-        echo "Token is valid."
+    nowEpochUTC=$(date -j -f "%Y-%m-%dT%H:%M:%S" "$(date -u +"%Y-%m-%dT%H:%M:%S")" +"%s")
+    
+    # Check if token will expire in the next 60 seconds (buffer time)
+    if [[ $((tokenExpirationEpoch - 60)) -gt $nowEpochUTC ]]; then
+        echo "Token is still valid."
     else
-        echo "Token expired, fetching new token."
+        echo "Token expired or expiring soon, fetching new token."
         getBearerToken
     fi
 }
+
+# Get the initial Bearer Token
+echo "Authenticating with Jamf API..."
+getBearerToken
 
 # Get advanced computer search results
 echo "Fetching computers from advanced search ID: $advancedSearchID"
@@ -144,3 +165,4 @@ done
 invalidateToken
 
 exit 0
+

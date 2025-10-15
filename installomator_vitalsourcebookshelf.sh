@@ -25,3 +25,14 @@ vitalsourcebookshelf)
     expectedTeamID="QX549BPYZ8"
     blockingProcesses=( vitalsourcebookshelf )
     ;;
+
+
+Verniergraphicalanalysis)
+    name="Vernier Graphical Analysis"
+    type="dmg"
+    # Get the latest version directory
+    downloadURL="https://software-releases.graphicalanalysis.com/ga/mac/release/latest/Vernier-Graphical-Analysis.dmg"
+    # Set the app new version
+    appNewVersion=""
+    expectedTeamID="75WN2B2WR8"
+    ;;
