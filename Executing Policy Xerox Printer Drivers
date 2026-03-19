@@ -1,0 +1,367 @@
+Executing Policy Xerox Printer Drivers
+Running script Installomator...
+Script exit code: 0
+Script result: 2024-10-30 15:57:59 : REQ   :  : shifting arguments for Jamf
+2024-10-30 15:57:59 : REQ   : xeroxphaser7800 : ################## Start Installomator v. 10.7beta, date 2024-09-02
+2024-10-30 15:57:59 : INFO  : xeroxphaser7800 : ################## Version: 10.7beta
+2024-10-30 15:57:59 : INFO  : xeroxphaser7800 : ################## Date: 2024-09-02
+2024-10-30 15:57:59 : INFO  : xeroxphaser7800 : ################## xeroxphaser7800
+2024-10-30 15:57:59 : DEBUG : xeroxphaser7800 : DEBUG mode 1 enabled.
+2024-10-30 15:57:59 : INFO  : xeroxphaser7800 : SwiftDialog is not installed, clear cmd file var
+2024-10-30 15:58:00 : INFO  : xeroxphaser7800 : setting variable from argument DEBUG=0
+2024-10-30 15:58:00 : INFO  : xeroxphaser7800 : setting variable from argument NOTIFY=silent
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : name=XeroxPhaser
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : appName=
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : type=pkgInDmg
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : archiveName=
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : downloadURL=https://download.support.xerox.com/pub/drivers/ALB80XX/drivers/macOS12/pt_BR/XeroxDrivers_5.16.0_2486.dmg
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : curlOptions=
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : appNewVersion=
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : appCustomVersion function: Not defined
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : versionKey=CFBundleShortVersionString
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : packageID=
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : pkgName=
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : choiceChangesXML=
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : expectedTeamID=G59Y3XFNFR
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : blockingProcesses=
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : installerTool=
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : CLIInstaller=
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : CLIArguments=
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : updateTool=
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : updateToolArguments=
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : updateToolRunAsCurrentUser=
+2024-10-30 15:58:00 : INFO  : xeroxphaser7800 : BLOCKING_PROCESS_ACTION=tell_user
+2024-10-30 15:58:00 : INFO  : xeroxphaser7800 : NOTIFY=silent
+2024-10-30 15:58:00 : INFO  : xeroxphaser7800 : LOGGING=DEBUG
+2024-10-30 15:58:00 : INFO  : xeroxphaser7800 : LOGO=/System/Applications/App Store.app/Contents/Resources/AppIcon.icns
+2024-10-30 15:58:00 : INFO  : xeroxphaser7800 : Label type: pkgInDmg
+2024-10-30 15:58:00 : INFO  : xeroxphaser7800 : archiveName: XeroxPhaser.dmg
+2024-10-30 15:58:00 : INFO  : xeroxphaser7800 : no blocking processes defined, using XeroxPhaser as default
+2024-10-30 15:58:00 : DEBUG : xeroxphaser7800 : Changing directory to /var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/tmp.7tNfWx5UEt
+2024-10-30 15:58:00 : INFO  : xeroxphaser7800 : name: XeroxPhaser, appName: XeroxPhaser.app
+2024-10-30 15:58:00.803 mdfind[77622:1320366] [UserQueryParser] Loading keywords and predicates for locale "en_US"
+2024-10-30 15:58:00.803 mdfind[77622:1320366] [UserQueryParser] Loading keywords and predicates for locale "en"
+2024-10-30 15:58:00.845 mdfind[77622:1320366] Couldn't determine the mapping between prefab keywords and predicates.
+2024-10-30 15:58:00 : WARN  : xeroxphaser7800 : No previous app found
+2024-10-30 15:58:00 : WARN  : xeroxphaser7800 : could not find XeroxPhaser.app
+2024-10-30 15:58:00 : INFO  : xeroxphaser7800 : appversion: 
+2024-10-30 15:58:00 : INFO  : xeroxphaser7800 : Latest version not specified.
+2024-10-30 15:58:00 : REQ   : xeroxphaser7800 : Downloading https://download.support.xerox.com/pub/drivers/ALB80XX/drivers/macOS12/pt_BR/XeroxDrivers_5.16.0_2486.dmg to XeroxPhaser.dmg
+2024-10-30 15:58:01 : DEBUG : xeroxphaser7800 : No Dialog connection, just download
+2024-10-30 15:58:07 : DEBUG : xeroxphaser7800 : File list: -rw-r--r--  1 root  wheel    84M Oct 30 15:58 XeroxPhaser.dmg
+2024-10-30 15:58:07 : DEBUG : xeroxphaser7800 : File type: XeroxPhaser.dmg: zlib compressed data
+2024-10-30 15:58:07 : DEBUG : xeroxphaser7800 : curl output was:
+* Host download.support.xerox.com:443 was resolved.
+* IPv6: (none)
+* IPv4: 23.219.3.200, 23.219.3.201
+*   Trying 23.219.3.200:443...
+* Connected to download.support.xerox.com (23.219.3.200) port 443
+* ALPN: curl offers h2,http/1.1
+* (304) (OUT), TLS handshake, Client hello (1):
+} [331 bytes data]
+*  CAfile: /etc/ssl/cert.pem
+*  CApath: none
+* (304) (IN), TLS handshake, Server hello (2):
+{ [122 bytes data]
+* (304) (IN), TLS handshake, Unknown (8):
+{ [35 bytes data]
+* (304) (IN), TLS handshake, Certificate (11):
+{ [3387 bytes data]
+* (304) (IN), TLS handshake, CERT verify (15):
+{ [264 bytes data]
+* (304) (IN), TLS handshake, Finished (20):
+{ [36 bytes data]
+* (304) (OUT), TLS handshake, Finished (20):
+} [36 bytes data]
+* SSL connection using TLSv1.3 / AEAD-CHACHA20-POLY1305-SHA256 / [blank] / UNDEF
+* ALPN: server accepted http/1.1
+* Server certificate:
+*  subject: C=US; ST=Connecticut; O=Xerox Corporation; CN=download.support.xerox.com
+*  start date: Aug 21 00:00:00 2024 GMT
+*  expire date: Aug 21 23:59:59 2025 GMT
+*  subjectAltName: host "download.support.xerox.com" matched cert's "download.support.xerox.com"
+*  issuer: C=GB; ST=Greater Manchester; L=Salford; O=Sectigo Limited; CN=Sectigo RSA Organization Validation Secure Server CA
+*  SSL certificate verify ok.
+* using HTTP/1.x
+> GET /pub/drivers/ALB80XX/drivers/macOS12/pt_BR/XeroxDrivers_5.16.0_2486.dmg HTTP/1.1
+
+> Host: download.support.xerox.com
+
+> User-Agent: curl/8.7.1
+
+> Accept: */*
+
+> 
+
+* Request completely sent off
+< HTTP/1.1 200 OK
+
+< Server: Apache/2.2.15 (Red Hat)
+
+< Last-Modified: Fri, 13 Sep 2024 03:41:29 GMT
+
+< ETag: "27f49af-53c9511-621f7ff972c40"
+
+< Accept-Ranges: bytes
+
+< Content-Length: 87856401
+
+< site_id: download.support.xerox.com
+
+< Content-Type: text/plain; charset=UTF-8
+
+< Date: Wed, 30 Oct 2024 19:58:01 GMT
+
+< Connection: keep-alive
+
+< Set-Cookie: Am_UserId=08fdda1776cc2e00c98f22670d010000280f0000; expires=Tue, 27-Jul-2027 19:58:01 GMT; path=/; domain=.xerox.com
+
+< 
+
+{ [15930 bytes data]
+* Connection #0 to host download.support.xerox.com left intact
+
+2024-10-30 15:58:07 : REQ   : xeroxphaser7800 : no more blocking processes, continue with update
+2024-10-30 15:58:07 : REQ   : xeroxphaser7800 : Installing XeroxPhaser
+2024-10-30 15:58:07 : INFO  : xeroxphaser7800 : Mounting /var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/tmp.7tNfWx5UEt/XeroxPhaser.dmg
+2024-10-30 15:58:09 : DEBUG : xeroxphaser7800 : Debugging enabled, dmgmount output was:
+Checksumming Protective Master Boot Record (MBR : 0)…
+Protective Master Boot Record (MBR :: verified   CRC32 $2D576E6E
+Checksumming GPT Header (Primary GPT Header : 1)…
+GPT Header (Primary GPT Header : 1): verified   CRC32 $675776CD
+Checksumming GPT Partition Data (Primary GPT Table : 2)…
+GPT Partition Data (Primary GPT Tabl: verified   CRC32 $D4BD15FB
+Checksumming  (Apple_Free : 3)…
+(Apple_Free : 3): verified   CRC32 $00000000
+Checksumming disk image (Apple_HFS : 4)…
+disk image (Apple_HFS : 4): verified   CRC32 $6E6A0289
+Checksumming  (Apple_Free : 5)…
+(Apple_Free : 5): verified   CRC32 $00000000
+Checksumming GPT Partition Data (Backup GPT Table : 6)…
+GPT Partition Data (Backup GPT Table: verified   CRC32 $D4BD15FB
+Checksumming GPT Header (Backup GPT Header : 7)…
+GPT Header (Backup GPT Header : 7): verified   CRC32 $9001C60B
+verified   CRC32 $3E762313
+/dev/disk4          	GUID_partition_scheme
+/dev/disk4s1        	Apple_HFS                      	/Volumes/Xerox Drivers 5.16.0
+
+2024-10-30 15:58:09 : INFO  : xeroxphaser7800 : Mounted: /Volumes/Xerox Drivers 5.16.0
+2024-10-30 15:58:09 : DEBUG : xeroxphaser7800 : Found pkg(s):
+/Volumes/Xerox Drivers 5.16.0/Xerox Drivers 5.16.0.pkg
+2024-10-30 15:58:09 : INFO  : xeroxphaser7800 : found pkg: /Volumes/Xerox Drivers 5.16.0/Xerox Drivers 5.16.0.pkg
+2024-10-30 15:58:09 : INFO  : xeroxphaser7800 : Verifying: /Volumes/Xerox Drivers 5.16.0/Xerox Drivers 5.16.0.pkg
+2024-10-30 15:58:09 : DEBUG : xeroxphaser7800 : File list: -rw-r--r--  1 root  staff    83M Sep 11 08:20 /Volumes/Xerox Drivers 5.16.0/Xerox Drivers 5.16.0.pkg
+2024-10-30 15:58:09 : DEBUG : xeroxphaser7800 : File type: /Volumes/Xerox Drivers 5.16.0/Xerox Drivers 5.16.0.pkg: xar archive compressed TOC: 37590, SHA-1 checksum
+2024-10-30 15:58:09 : DEBUG : xeroxphaser7800 : spctlOut is /Volumes/Xerox Drivers 5.16.0/Xerox Drivers 5.16.0.pkg: accepted
+2024-10-30 15:58:09 : DEBUG : xeroxphaser7800 : source=Notarized Developer ID
+2024-10-30 15:58:09 : DEBUG : xeroxphaser7800 : origin=Developer ID Installer: Xerox Corporation (G59Y3XFNFR)
+2024-10-30 15:58:09 : INFO  : xeroxphaser7800 : Team ID: G59Y3XFNFR (expected: G59Y3XFNFR )
+2024-10-30 15:58:09 : INFO  : xeroxphaser7800 : Installing /Volumes/Xerox Drivers 5.16.0/Xerox Drivers 5.16.0.pkg to /
+2024-10-30 15:58:27 : DEBUG : xeroxphaser7800 : Debugging enabled, installer output was:
+Oct 30 15:58:09  installer[77755] <Debug>: Product archive /Volumes/Xerox Drivers 5.16.0/Xerox Drivers 5.16.0.pkg trustLevel=350
+Oct 30 15:58:09  installer[77755] <Debug>: External component packages (1) trustLevel=350
+Oct 30 15:58:09  installer[77755] <Debug>: -[IFDInstallController(Private) _buildInstallPlanReturningError:]: location = file://localhost
+Oct 30 15:58:09  installer[77755] <Debug>: -[IFDInstallController(Private) _buildInstallPlanReturningError:]: file://localhost/Volumes/Xerox%20Drivers%205.16.0/Xerox%20Drivers%205.16.0.pkg#xerox_driver.pkg
+Oct 30 15:58:09  installer[77755] <Info>: Set authorization level to root for session
+Oct 30 15:58:09  installer[77755] <Info>: Authorization is being checked, waiting until authorization arrives.
+Oct 30 15:58:09  installer[77755] <Info>: Administrator authorization granted.
+Oct 30 15:58:09  installer[77755] <Info>: Packages have been authorized for installation.
+Oct 30 15:58:09  installer[77755] <Debug>: Will use PK session
+Oct 30 15:58:09  installer[77755] <Debug>: Using authorization level of root for IFPKInstallElement
+Oct 30 15:58:10  installer[77755] <Info>: Starting installation:
+Oct 30 15:58:10  installer[77755] <Notice>: Configuring volume "Macintosh HD"
+Oct 30 15:58:10  installer[77755] <Info>: Preparing disk for local booted install.
+Oct 30 15:58:10  installer[77755] <Notice>: Free space on "Macintosh HD": 15.11 GB (15106961408 bytes).
+Oct 30 15:58:10  installer[77755] <Notice>: Create temporary directory "/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.77755wvalI2"
+Oct 30 15:58:10  installer[77755] <Notice>: IFPKInstallElement (1 packages)
+Oct 30 15:58:10  installer[77755] <Info>: Current Path: /usr/sbin/installer
+Oct 30 15:58:10  installer[77755] <Info>: Current Path: /bin/zsh
+Oct 30 15:58:10  installer[77755] <Info>: Current Path: /bin/bash
+Oct 30 15:58:10  installer[77755] <Info>: Current Path: /usr/local/jamf/bin/jamf
+Oct 30 15:58:10  installer[77755] <Info>: Current Path: /usr/bin/sudo
+Oct 30 15:58:10  installer[77755] <Notice>: PackageKit: Enqueuing install with framework-specified quality of service (utility)
+installer: Package name is Xerox Drivers
+installer: Upgrading at base path /
+installer: Preparing for installation….....
+installer: Preparing the disk….....
+installer: Preparing Xerox Drivers….....
+installer: Waiting for other installations to complete….....
+installer: Configuring the installation….....
+installer:
+#
+installer: Validating packages….....
+#
+installer: Writing files….....
+#
+installer: Writing files….....
+#
+installer: Writing files….....
+#
+installer: Writing files….....
+#
+installer: Writing files….....
+#
+installer: Running package scripts….....
+#
+installer: Running package scripts….....
+#
+installer: Removing old files….....
+#
+installer: Removing old files….....
+#
+installer: Removing old files….....
+Last Log repeated 2 times
+#
+installer: Moving items into place….....
+#
+installer: Running package scripts….....
+#
+installer: Running package scripts….....
+#Oct 30 15:58:24  installer[77755] <Info>: PackageKit: Registered bundle file:///Library/Application%20Support/Xerox/Utilities/Xerox%20Configuration%20Utility.app/ for uid 0
+Oct 30 15:58:24  installer[77755] <Info>: PackageKit: Registered bundle file:///Library/Printers/Xerox/Filters/commandtoxbds.app/ for uid 0
+Oct 30 15:58:24  installer[77755] <Info>: PackageKit: Registered bundle file:///Library/Image%20Capture/Devices/Xerox%20ICA%20Driver.app/ for uid 0
+Oct 30 15:58:24  installer[77755] <Info>: PackageKit: Registered bundle file:///Library/Printers/Xerox/Filters/pstoxrps.app/ for uid 0
+
+installer: Running package scripts….....
+Last Log repeated 10 times
+installer: Validating packages….....
+#Oct 30 15:58:25  installer[77755] <Notice>: Running install actions
+Oct 30 15:58:25  installer[77755] <Notice>: Removing temporary directory "/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.77755wvalI2"
+Oct 30 15:58:25  installer[77755] <Notice>: Finalize disk "Macintosh HD"
+Oct 30 15:58:25  installer[77755] <Notice>: Notifying system of updated components
+Oct 30 15:58:25  installer[77755] <Notice>:
+Oct 30 15:58:25  installer[77755] <Notice>: **** Summary Information ****
+Oct 30 15:58:25  installer[77755] <Notice>:   Operation      Elapsed time
+Oct 30 15:58:25  installer[77755] <Notice>: -----------------------------
+Oct 30 15:58:25  installer[77755] <Notice>:        disk      0.01 seconds
+Oct 30 15:58:25  installer[77755] <Notice>:      script      0.00 seconds
+Oct 30 15:58:25  installer[77755] <Notice>:        zero      0.00 seconds
+Oct 30 15:58:25  installer[77755] <Notice>:     install      15.20 seconds
+Oct 30 15:58:25  installer[77755] <Notice>:     -total-      15.21 seconds
+Oct 30 15:58:25  installer[77755] <Notice>:
+
+installer: 	Running installer actions…
+installer:
+installer: Finishing the Installation….....
+installer:
+#
+installer: The software was successfully installed......
+installer: The upgrade was successful.
+Output of /var/log/install.log below this line.----------------------------------------------------------2024-10-30 15:58:09-04 J7RPF4WPD9 installer[77755]: Product archive /Volumes/Xerox Drivers 5.16.0/Xerox Drivers 5.16.0.pkg trustLevel=350
+2024-10-30 15:58:09-04 J7RPF4WPD9 installer[77755]: External component packages (1) trustLevel=350
+2024-10-30 15:58:09-04 J7RPF4WPD9 installer[77755]: -[IFDInstallController(Private) _buildInstallPlanReturningError:]: location = file://localhost
+2024-10-30 15:58:09-04 J7RPF4WPD9 installer[77755]: -[IFDInstallController(Private) _buildInstallPlanReturningError:]: file://localhost/Volumes/Xerox%20Drivers%205.16.0/Xerox%20Drivers%205.16.0.pkg#xerox_driver.pkg
+2024-10-30 15:58:09-04 J7RPF4WPD9 installer[77755]: Set authorization level to root for session
+2024-10-30 15:58:09-04 J7RPF4WPD9 installer[77755]: Authorization is being checked, waiting until authorization arrives.
+2024-10-30 15:58:09-04 J7RPF4WPD9 installer[77755]: Administrator authorization granted.
+2024-10-30 15:58:09-04 J7RPF4WPD9 installer[77755]: Packages have been authorized for installation.
+2024-10-30 15:58:09-04 J7RPF4WPD9 installer[77755]: Will use PK session
+2024-10-30 15:58:09-04 J7RPF4WPD9 installer[77755]: Using authorization level of root for IFPKInstallElement
+2024-10-30 15:58:10-04 J7RPF4WPD9 installer[77755]: Starting installation:
+2024-10-30 15:58:10-04 J7RPF4WPD9 installer[77755]: Configuring volume "Macintosh HD"
+2024-10-30 15:58:10-04 J7RPF4WPD9 installer[77755]: Preparing disk for local booted install.
+2024-10-30 15:58:10-04 J7RPF4WPD9 installer[77755]: Free space on "Macintosh HD": 15.11 GB (15106961408 bytes).
+2024-10-30 15:58:10-04 J7RPF4WPD9 installer[77755]: Create temporary directory "/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.77755wvalI2"
+2024-10-30 15:58:10-04 J7RPF4WPD9 installer[77755]: IFPKInstallElement (1 packages)
+2024-10-30 15:58:10-04 J7RPF4WPD9 installer[77755]: Current Path: /usr/sbin/installer
+2024-10-30 15:58:10-04 J7RPF4WPD9 installer[77755]: Current Path: /bin/zsh
+2024-10-30 15:58:10-04 J7RPF4WPD9 installer[77755]: Current Path: /bin/bash
+2024-10-30 15:58:10-04 J7RPF4WPD9 installer[77755]: Current Path: /usr/local/jamf/bin/jamf
+2024-10-30 15:58:10-04 J7RPF4WPD9 installer[77755]: Current Path: /usr/bin/sudo
+2024-10-30 15:58:10-04 J7RPF4WPD9 installd[1057]: PackageKit: Adding client PKInstallDaemonClient pid=77755, uid=0 (/usr/sbin/installer)
+2024-10-30 15:58:10-04 J7RPF4WPD9 installer[77755]: PackageKit: Enqueuing install with framework-specified quality of service (utility)
+2024-10-30 15:58:10-04 J7RPF4WPD9 installd[1057]: PackageKit: Set reponsibility for install to 877
+2024-10-30 15:58:10-04 J7RPF4WPD9 installd[1057]: PackageKit: Hosted team responsibility for install set to team:(G59Y3XFNFR)
+2024-10-30 15:58:10-04 J7RPF4WPD9 installd[1057]: PackageKit: ----- Begin install -----
+2024-10-30 15:58:10-04 J7RPF4WPD9 installd[1057]: PackageKit: request=PKInstallRequest <1 packages, destination=/>
+2024-10-30 15:58:10-04 J7RPF4WPD9 installd[1057]: PackageKit: packages=(
+2024-10-30 15:58:11-04 J7RPF4WPD9 installd[1057]: PackageKit: Archive at path (/Volumes/Xerox Drivers 5.16.0/Xerox Drivers 5.16.0.pkg) could not be opened readwrite (Read-only file system), falling back to readonly.
+2024-10-30 15:58:11-04 J7RPF4WPD9 installd[1057]: PackageKit: Extracting file:///Volumes/Xerox%20Drivers%205.16.0/Xerox%20Drivers%205.16.0.pkg#xerox_driver.pkg (destination=/Library/InstallerSandboxes/.PKInstallSandboxManager/1C7CAA64-059E-4142-82BD-BD65686F5F7F.activeSandbox/Root, uid=0)
+2024-10-30 15:58:13-04 J7RPF4WPD9 installd[1057]: PackageKit: prevent user idle system sleep
+2024-10-30 15:58:13-04 J7RPF4WPD9 installd[1057]: PackageKit: suspending backupd
+2024-10-30 15:58:13-04 J7RPF4WPD9 installd[1057]: PackageKit (package_script_service): Preparing to execute script "./preinstall" in /private/tmp/PKInstallSandbox.BEKHWu/Scripts/com.xerox.drivers.pkg.5zvdqn
+2024-10-30 15:58:13-04 J7RPF4WPD9 package_script_service[3078]: PackageKit: Preparing to execute script "preinstall" in /tmp/PKInstallSandbox.BEKHWu/Scripts/com.xerox.drivers.pkg.5zvdqn
+2024-10-30 15:58:13-04 J7RPF4WPD9 package_script_service[3078]: Set responsibility to pid: 877, responsible_path: /System/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal
+2024-10-30 15:58:13-04 J7RPF4WPD9 package_script_service[3078]: Hosted team responsibility for script set to team:(G59Y3XFNFR)
+2024-10-30 15:58:13-04 J7RPF4WPD9 package_script_service[3078]: PackageKit: Executing script "preinstall" in /tmp/PKInstallSandbox.BEKHWu/Scripts/com.xerox.drivers.pkg.5zvdqn
+2024-10-30 15:58:13-04 J7RPF4WPD9 install_monitor[77772]: Temporarily excluding: /Applications, /Library, /System, /bin, /private, /sbin, /usr
+2024-10-30 15:58:14-04 J7RPF4WPD9 package_script_service[3078]: PackageKit: Hosted team responsible for script has been cleared.
+2024-10-30 15:58:14-04 J7RPF4WPD9 package_script_service[3078]: Responsibility set back to self.
+2024-10-30 15:58:14-04 J7RPF4WPD9 installd[1057]: PackageKit: Using trashcan path /var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/PKInstallSandboxTrash/1C7CAA64-059E-4142-82BD-BD65686F5F7F.sandboxTrash for sandbox /Library/InstallerSandboxes/.PKInstallSandboxManager/1C7CAA64-059E-4142-82BD-BD65686F5F7F.activeSandbox
+2024-10-30 15:58:17-04 J7RPF4WPD9 softwareupdated[380]: Event handler called with flags: 103
+2024-10-30 15:58:17-04 J7RPF4WPD9 softwareupdated[380]: Saving state after notification bundle changed - notification pending: YES
+2024-10-30 15:58:17-04 J7RPF4WPD9 softwareupdated[380]: SUOSNotificationBundleHandler: Should notify? NO (Notification pending=1, bundle exists=0, mdmInitiatedNotificationBundleInstall=0)
+2024-10-30 15:58:17-04 J7RPF4WPD9 softwareupdated[380]: Cancel handler called for vnode detection
+2024-10-30 15:58:17-04 J7RPF4WPD9 installd[1057]: PackageKit: Shoving /Library/InstallerSandboxes/.PKInstallSandboxManager/1C7CAA64-059E-4142-82BD-BD65686F5F7F.activeSandbox/Root (1 items) to /
+2024-10-30 15:58:17-04 J7RPF4WPD9 installd[1057]: PackageKit: Parent bundle com.xerox.Xerox-Configuration-Utility will be atomically shoved.
+2024-10-30 15:58:17-04 J7RPF4WPD9 installd[1057]: PackageKit: Parent bundle com.xerox.twain.scanning.help will be atomically shoved.
+2024-10-30 15:58:17-04 J7RPF4WPD9 installd[1057]: PackageKit: Parent bundle com.xerox.XRAnalytics will be atomically shoved.
+2024-10-30 15:58:17-04 J7RPF4WPD9 installd[1057]: PackageKit: Parent bundle com.xerox.XeroxScanServices will be atomically shoved.
+2024-10-30 15:58:17-04 J7RPF4WPD9 installd[1057]: PackageKit: Parent bundle com.xerox.scanui.fmwk will be atomically shoved.
+2024-10-30 15:58:17-04 J7RPF4WPD9 installd[1057]: PackageKit: Parent bundle com.xerox.ica.driver will be atomically shoved.
+2024-10-30 15:58:17-04 J7RPF4WPD9 installd[1057]: PackageKit: Parent bundle com.xerox.twaind2.ds will be atomically shoved.
+2024-10-30 15:58:17-04 J7RPF4WPD9 installd[1057]: PackageKit: Parent bundle com.xerox.commandtoxbds will be atomically shoved.
+2024-10-30 15:58:17-04 J7RPF4WPD9 installd[1057]: PackageKit: Parent bundle com.xerox.print.pstoxrps will be atomically shoved.
+2024-10-30 15:58:17-04 J7RPF4WPD9 installd[1057]: PackageKit: Parent bundle com.xerox.xeroxfeatures.pde will be atomically shoved.
+2024-10-30 15:58:17-04 J7RPF4WPD9 installd[1057]: PackageKit (package_script_service): Preparing to execute script "./postinstall" in /private/tmp/PKInstallSandbox.BEKHWu/Scripts/com.xerox.drivers.pkg.5zvdqn
+2024-10-30 15:58:17-04 J7RPF4WPD9 package_script_service[3078]: PackageKit: Preparing to execute script "postinstall" in /tmp/PKInstallSandbox.BEKHWu/Scripts/com.xerox.drivers.pkg.5zvdqn
+2024-10-30 15:58:17-04 J7RPF4WPD9 package_script_service[3078]: Set responsibility to pid: 877, responsible_path: /System/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal
+2024-10-30 15:58:17-04 J7RPF4WPD9 package_script_service[3078]: Hosted team responsibility for script set to team:(G59Y3XFNFR)
+2024-10-30 15:58:17-04 J7RPF4WPD9 package_script_service[3078]: PackageKit: Executing script "postinstall" in /tmp/PKInstallSandbox.BEKHWu/Scripts/com.xerox.drivers.pkg.5zvdqn
+2024-10-30 15:58:23-04 J7RPF4WPD9 package_script_service[3078]: PackageKit: Hosted team responsible for script has been cleared.
+2024-10-30 15:58:23-04 J7RPF4WPD9 package_script_service[3078]: Responsibility set back to self.
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: PackageKit: Writing receipt for com.xerox.drivers.pkg to /
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: PackageKit: No Intel binaries to translate.
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: PackageKit: Touched bundle /Library/Application Support/Xerox/Utilities/Xerox Configuration Utility.app
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: PackageKit: Touched bundle /Library/Printers/Xerox/Filters/commandtoxbds.app
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: PackageKit: Touched bundle /Library/Image Capture/Devices/Xerox ICA Driver.app
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: PackageKit: Touched bundle /Library/Printers/Xerox/Filters/pstoxrps.app
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: Installed "Xerox Drivers" (5.16.0)
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: Successfully wrote install history to /Library/Receipts/InstallHistory.plist
+2024-10-30 15:58:24-04 J7RPF4WPD9 install_monitor[77772]: Re-included: /Applications, /Library, /System, /bin, /private, /sbin, /usr
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: PackageKit: releasing backupd
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: PackageKit: allow user idle system sleep
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: PackageKit: ----- End install -----
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: PackageKit: 14.1s elapsed install time
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: PackageKit: Cleared responsibility for install from 77755.
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: PackageKit: Hosted team responsible for install has been cleared.
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: PackageKit: Running idle tasks
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: PackageKit: Done with sandbox removals
+2024-10-30 15:58:24-04 J7RPF4WPD9 installer[77755]: PackageKit: Registered bundle file:///Library/Application%20Support/Xerox/Utilities/Xerox%20Configuration%20Utility.app/ for uid 0
+2024-10-30 15:58:24-04 J7RPF4WPD9 installer[77755]: PackageKit: Registered bundle file:///Library/Printers/Xerox/Filters/commandtoxbds.app/ for uid 0
+2024-10-30 15:58:24-04 J7RPF4WPD9 installer[77755]: PackageKit: Registered bundle file:///Library/Image%20Capture/Devices/Xerox%20ICA%20Driver.app/ for uid 0
+2024-10-30 15:58:24-04 J7RPF4WPD9 installer[77755]: PackageKit: Registered bundle file:///Library/Printers/Xerox/Filters/pstoxrps.app/ for uid 0
+2024-10-30 15:58:24-04 J7RPF4WPD9 installd[1057]: PackageKit: Removing client PKInstallDaemonClient pid=77755, uid=0 (/usr/sbin/installer)
+2024-10-30 15:58:25-04 J7RPF4WPD9 installer[77755]: Running install actions
+2024-10-30 15:58:25-04 J7RPF4WPD9 installer[77755]: Removing temporary directory "/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.77755wvalI2"
+2024-10-30 15:58:25-04 J7RPF4WPD9 installer[77755]: Finalize disk "Macintosh HD"
+2024-10-30 15:58:25-04 J7RPF4WPD9 installer[77755]: Notifying system of updated components
+2024-10-30 15:58:25-04 J7RPF4WPD9 installer[77755]:
+2024-10-30 15:58:25-04 J7RPF4WPD9 installer[77755]: **** Summary Information ****
+2024-10-30 15:58:25-04 J7RPF4WPD9 installer[77755]:   Operation      Elapsed time
+2024-10-30 15:58:25-04 J7RPF4WPD9 installer[77755]: -----------------------------
+2024-10-30 15:58:25-04 J7RPF4WPD9 installer[77755]:        disk      0.01 seconds
+2024-10-30 15:58:25-04 J7RPF4WPD9 installer[77755]:      script      0.00 seconds
+2024-10-30 15:58:25-04 J7RPF4WPD9 installer[77755]:        zero      0.00 seconds
+2024-10-30 15:58:25-04 J7RPF4WPD9 installer[77755]:     install      15.20 seconds
+2024-10-30 15:58:25-04 J7RPF4WPD9 installer[77755]:     -total-      15.21 seconds
+2024-10-30 15:58:25-04 J7RPF4WPD9 installer[77755]:
+
+2024-10-30 15:58:27 : INFO  : xeroxphaser7800 : Finishing...
+2024-10-30 15:58:30 : INFO  : xeroxphaser7800 : name: XeroxPhaser, appName: XeroxPhaser.app
+2024-10-30 15:58:30.248 mdfind[77859:1321464] [UserQueryParser] Loading keywords and predicates for locale "en_US"
+2024-10-30 15:58:30.248 mdfind[77859:1321464] [UserQueryParser] Loading keywords and predicates for locale "en"
+2024-10-30 15:58:30.294 mdfind[77859:1321464] Couldn't determine the mapping between prefab keywords and predicates.
+2024-10-30 15:58:30 : WARN  : xeroxphaser7800 : No previous app found
+2024-10-30 15:58:30 : WARN  : xeroxphaser7800 : could not find XeroxPhaser.app
+2024-10-30 15:58:30 : REQ   : xeroxphaser7800 : Installed XeroxPhaser
+2024-10-30 15:58:30 : DEBUG : xeroxphaser7800 : Unmounting /Volumes/Xerox Drivers 5.16.0
+2024-10-30 15:58:30 : DEBUG : xeroxphaser7800 : Debugging enabled, Unmounting output was:
+"disk4" ejected.
+2024-10-30 15:58:30 : DEBUG : xeroxphaser7800 : Deleting /var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/tmp.7tNfWx5UEt
+2024-10-30 15:58:30 : DEBUG : xeroxphaser7800 : Debugging enabled, Deleting tmpDir output was:
+/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/tmp.7tNfWx5UEt/XeroxPhaser.dmg
+2024-10-30 15:58:30 : DEBUG : xeroxphaser7800 : /var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/tmp.7tNfWx5UEt
+2024-10-30 15:58:30 : INFO  : xeroxphaser7800 : Installomator did not close any apps, so no need to reopen any apps.
+2024-10-30 15:58:30 : REQ   : xeroxphaser7800 : All done!
+2024-10-30 15:58:30 : REQ   : xeroxphaser7800 : ################## End Installomator, exit code 0 

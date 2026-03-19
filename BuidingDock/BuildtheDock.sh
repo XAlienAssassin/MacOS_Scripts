@@ -74,19 +74,35 @@ function check_dock {
     SEARCH_TEXT_3='
             "file-label" = "Google Chrome";
     '
+<<<<<<< Updated upstream
     
     SEARCH_TEXT_4='
             "file-label" = Notes;
+=======
+
+    SEARCH_TEXT_4='
+            "file-label" = Messages;
+    '
+
+    SEARCH_TEXT_5='
+            "file-label" = Music;
+>>>>>>> Stashed changes
     '
 
     if [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_1"* ]] && \
        [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_2"* ]] && \
+<<<<<<< Updated upstream
        [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_3"* ]]; then
         # Check if Notes is in the dock - if it is, we need to rebuild
         if [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_4"* ]]; then
             echo "Notes app found in dock, need to rebuild"
             return 1
         fi
+=======
+       [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_3"* ]] && \
+       [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_4"* ]] && \
+       [[ "$PLIST_CONTENTS" != *"$SEARCH_TEXT_5"* ]]; then
+>>>>>>> Stashed changes
         return 0
     else
         return 1
@@ -105,7 +121,11 @@ while ! check_dock && [ $attempt -le $max_attempts ]; do
     # Call the create_dock function to recreate the dock
     create_dock
     # Sleep for 1 second before the next attempt
+<<<<<<< Updated upstream
     $sleep 2
+=======
+    $sleep 1
+>>>>>>> Stashed changes
     # Increment the attempt counter
     ((attempt++))
 done
