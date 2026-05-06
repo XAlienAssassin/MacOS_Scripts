@@ -52,7 +52,6 @@ function create_dock {
     $dockutil --add '/System/Applications/Launchpad.app' --no-restart $UserPlist
     $dockutil --add '/System/Applications/System Settings.app' --no-restart $UserPlist
     $dockutil --add '/Applications/Self Service.app' --no-restart $UserPlist
-    $dockutil --add '/Applications/Safari.app' --no-restart $UserPlist
     $dockutil --add '/Applications/Google Chrome.app' --no-restart $UserPlist
     echo "Restarting Dock..."
     $sleep 1
@@ -67,7 +66,6 @@ function create_dock2 {
     $dockutil --add '/System/Applications/Apps.app' --no-restart $UserPlist
     $dockutil --add '/System/Applications/System Settings.app' --no-restart $UserPlist
     $dockutil --add '/Applications/Self Service.app' --no-restart $UserPlist
-    $dockutil --add '/Applications/Safari.app' --no-restart $UserPlist
     $dockutil --add '/Applications/Google Chrome.app' --no-restart $UserPlist
     echo "Restarting Dock..."
     $sleep 1
@@ -78,10 +76,6 @@ function create_dock2 {
 function check_dock {
     PLIST_CONTENTS=$(defaults read com.apple.dock persistent-apps)
 
-    SEARCH_TEXT_1='
-            "file-label" = Safari;
-    '
-
     SEARCH_TEXT_2='
             "file-label" = "Self Service";
     '
@@ -89,13 +83,12 @@ function check_dock {
     SEARCH_TEXT_3='
             "file-label" = "Google Chrome";
     '
-    
+
     SEARCH_TEXT_4='
             "file-label" = Notes;
     '
 
-    if [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_1"* ]] && \
-       [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_2"* ]] && \
+    if [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_2"* ]] && \
        [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_3"* ]]; then
         # Check if Notes is in the dock - if it is, we need to rebuild
         if [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_4"* ]]; then
@@ -129,7 +122,7 @@ attempt=1
 # Loop until the dock is created correctly or the maximum number of attempts is reached
 while ! check_dock && [ $attempt -le $max_attempts ]; do
     # Print a message indicating the attempt number and the reason for recreating the dock
-    echo "Attempt $attempt: Safari, Self Service, or Google Chrome not found in dock, recreating dock..."
+    echo "Attempt $attempt: Self Service or Google Chrome not found in dock, recreating dock..."
     # Call the appropriate dock creation function based on OS version
     $dock_function
     # Sleep for 1 second before the next attempt
