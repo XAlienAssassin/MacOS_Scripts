@@ -60,6 +60,21 @@ function create_dock {
     $sleep 2
 }
 
+function create_dock2 {
+    echo "Creating New Dock..."
+    $dockutil --remove all --no-restart $UserPlist
+    $dockutil --add '~/Downloads' --section others --view auto --display folder --no-restart $UserPlist
+    $dockutil --add '/System/Applications/Apps.app' --no-restart $UserPlist
+    $dockutil --add '/System/Applications/System Settings.app' --no-restart $UserPlist
+    $dockutil --add '/Applications/Self Service.app' --no-restart $UserPlist
+    $dockutil --add '/Applications/Safari.app' --no-restart $UserPlist
+    $dockutil --add '/Applications/Google Chrome.app' --no-restart $UserPlist
+    echo "Restarting Dock..."
+    $sleep 1
+    $killall Dock
+    $sleep 2
+}
+
 function check_dock {
     PLIST_CONTENTS=$(defaults read com.apple.dock persistent-apps)
 
@@ -74,13 +89,9 @@ function check_dock {
     SEARCH_TEXT_3='
             "file-label" = "Google Chrome";
     '
-
+    
     SEARCH_TEXT_4='
-            "file-label" = Messages;
-    '
-
-    SEARCH_TEXT_5='
-            "file-label" = Music;
+            "file-label" = Notes;
     '
 
     if [[ "$PLIST_CONTENTS" == *"$SEARCH_TEXT_1"* ]] && \
@@ -97,6 +108,19 @@ function check_dock {
     fi
 }
 
+# Get macOS version
+os_version=$(sw_vers -productVersion | cut -d '.' -f 1)
+echo "macOS version detected: $os_version"
+
+# Determine which dock creation function to use based on OS version
+if [ "$os_version" -eq 13 ] || [ "$os_version" -eq 14 ] || [ "$os_version" -eq 15 ]; then
+    echo "Using create_dock for macOS $os_version"
+    dock_function=create_dock
+else
+    echo "Using create_dock2 for macOS $os_version"
+    dock_function=create_dock2
+fi
+
 # Set the maximum number of attempts to create the correct dock
 max_attempts=3
 # Initialize the attempt counter
@@ -106,14 +130,10 @@ attempt=1
 while ! check_dock && [ $attempt -le $max_attempts ]; do
     # Print a message indicating the attempt number and the reason for recreating the dock
     echo "Attempt $attempt: Safari, Self Service, or Google Chrome not found in dock, recreating dock..."
-    # Call the create_dock function to recreate the dock
-    create_dock
+    # Call the appropriate dock creation function based on OS version
+    $dock_function
     # Sleep for 1 second before the next attempt
-<<<<<<< Updated upstream
     $sleep 2
-=======
-    $sleep 1
->>>>>>> Stashed changes
     # Increment the attempt counter
     ((attempt++))
 done
