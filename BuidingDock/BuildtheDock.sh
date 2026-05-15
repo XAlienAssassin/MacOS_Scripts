@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Make time for other stuff to finish
-/bin/sleep 7
+/bin/sleep 8
 
 sleep=/bin/sleep
 
