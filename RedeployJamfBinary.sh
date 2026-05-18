@@ -1,17 +1,44 @@
 #!/bin/bash
-# Create a timestamped log file name
-timestamp=$(date +"%Y%m%d_%H%M%S")
-logFile="$HOME/Library/Logs/Redeploy_Jamf_Framework_${timestamp}.log"
+# ── Configuration ────────────────────────────────────────────────────────────
+jssURL=""
+apiuser=""
+apipass=""
+advancedSearchID=""
+logDir="/Users/orion.medina/Downloads"
+MAX_PARALLEL=10
+# ─────────────────────────────────────────────────────────────────────────────
 
-# Set up logging to both file and terminal
-# Create the log file
+if [[ -z "$jssURL" ]]; then
+    read -p "Please enter your Jamf Pro server URL : " jssURL
+fi
+
+if [[ -z "$apiuser" ]]; then
+    read -p "Please enter your Jamf Pro user account : " apiuser
+fi
+
+if [[ -z "$apipass" ]]; then
+    read -p "Please enter the password for the $apiuser account : " -s apipass
+    echo
+fi
+
+if [[ -z "$advancedSearchID" ]]; then
+    read -p "Please enter the Advanced Computer Search ID : " advancedSearchID
+fi
+
+if [[ -z "$jssURL" || -z "$apiuser" || -z "$apipass" || -z "$advancedSearchID" ]]; then
+    echo "ERROR: All fields are required." >&2
+    exit 1
+fi
+
+jssURL="${jssURL%/}"
+mkdir -p "$logDir"
+logFile="${logDir}/Redeploy_Jamf_Framework_$(date +%Y%m%d_%H%M%S).log"
 touch "$logFile"
 
 # Save original stdout/stderr, then redirect output to log file
 exec 3>&1 4>&2
 exec 1>>"$logFile" 2>&1
 
-# Define a function to echo to both log file and original stdout
 log() {
     echo "$@" >&1
     echo "$@" >&3
@@ -20,21 +47,6 @@ log() {
 alias echo="log"
 
 echo "Log file created at: $logFile"
-
-# Prompt for API credentials
-echo "Enter your Jamf API username: "
-read -u 3 apiuser
-echo "Enter your Jamf API password: "
-read -s -u 3 apipass
-echo "Enter the Advanced Computer Search ID: "
-read -u 3 advancedSearchID
-echo
-
-# URL (https://yourjamfserver.jamfcloud.com)
-jssURL="https://macapps.saintandrews.net:8443"
-
-# How many redeployments to run at once
-MAX_PARALLEL=10
 
 # Function to get a new bearer token
 get_bearer_token() {
@@ -78,8 +90,8 @@ rm /tmp/computer_ids.txt
 echo "Found ${#computer_ids[@]} computers in the advanced search"
 
 # Ask the user if they want to continue
-echo -n "Do you want to continue with redeploying the Jamf Management Framework? (yes/no): "
-read -u 3 confirm
+printf "Do you want to continue with redeploying the Jamf Management Framework? (yes/no): " >&3
+read confirm
 if [[ "$confirm" != "yes" ]]; then
     echo "Redeploy process aborted by user."
     exit 0
