@@ -2,7 +2,7 @@
 # This script uses GAM (Google Apps Manager)
 
 # Set the path to GAM executable
-GAM_PATH="/Users/medinao/bin/gam7/gam"
+GAM_PATH="/Users/orion.medina/bin/gam7/gam"
 
 # Check if GAM exists
 if [ ! -f "$GAM_PATH" ]; then
