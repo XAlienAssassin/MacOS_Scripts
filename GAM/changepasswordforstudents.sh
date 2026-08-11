@@ -1,3 +1,4 @@
+#!/bin/bash
 # Script to change the password for multiple users
 # This script uses GAM (Google Apps Manager)
 
@@ -21,9 +22,30 @@ users=(
     ""
 )
 
-# Loop through each users and update it
-for user in "${users[@]}"; do
+# Max number of users to update at the same time
+MAX_PARALLEL=5
+
+# Update a single user
+update_user() {
+    local user="$1"
     echo "Processing: $user"
-    $GAM_PATH update user $user password "StudentTemp2024!" changepassword true
+    $GAM_PATH update user "$user" password "StudentTemp2024!" changepassword true
     echo "-------------"
+}
+
+# Launch updates in parallel, capping concurrency at MAX_PARALLEL
+pids=()
+for user in "${users[@]}"; do
+    update_user "$user" &
+    pids+=("$!")
+
+    if [ "${#pids[@]}" -ge "$MAX_PARALLEL" ]; then
+        wait "${pids[0]}"
+        pids=("${pids[@]:1}")
+    fi
 done
+
+# Wait for any remaining background jobs to finish
+wait
+
+echo "All users processed."
