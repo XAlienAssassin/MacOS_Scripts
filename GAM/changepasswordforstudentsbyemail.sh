@@ -1,5 +1,5 @@
 #!/bin/bash
-# Script to hide multiple Google groups from the global address list
+# Script to change the password for multiple users
 # This script uses GAM (Google Apps Manager)
 
 # Set the path to GAM executable
@@ -12,31 +12,29 @@ if [ ! -f "$GAM_PATH" ]; then
     exit 1
 fi
 
-echo "Starting script to hide groups from global address list..."
+echo "Starting script to change password for multiple users..."
 echo "Using GAM at: $GAM_PATH"
 
-# ... existing code ...
-
-# Define an array of groups to process
-groups=(
+# Define an array of users to process
+users=(
     ""
 )
 
-# Max number of groups to update at the same time
+# Max number of users to update at the same time
 MAX_PARALLEL=5
 
-# Update a single group
-update_group() {
-    local group="$1"
-    echo "Processing: $group"
-    $GAM_PATH update group "$group" includeinglobaladdresslist false
+# Update a single user
+update_user() {
+    local user="$1"
+    echo "Processing: $user"
+    $GAM_PATH update user "$user" password "WelcometoSAS123!" changepassword true
     echo "-------------"
 }
 
 # Launch updates in parallel, capping concurrency at MAX_PARALLEL
 pids=()
-for group in "${groups[@]}"; do
-    update_group "$group" &
+for user in "${users[@]}"; do
+    update_user "$user" &
     pids+=("$!")
 
     if [ "${#pids[@]}" -ge "$MAX_PARALLEL" ]; then
@@ -48,4 +46,4 @@ done
 # Wait for any remaining background jobs to finish
 wait
 
-echo "All groups processed."
+echo "All users processed."

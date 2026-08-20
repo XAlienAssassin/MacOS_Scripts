@@ -1,17 +1,16 @@
 #!/bin/bash
-# Script to change the password for every user in an OU
+# Script to update the Google profile photo for every user in an OU
 # This script uses GAM (Google Apps Manager)
-# Sets a temp password and forces a password change on next login.
 
 # Set the path to GAM executable
 GAM_PATH="/Users/orion.medina/bin/gam7/gam"
 
-# OU whose members will have their password reset
+# OU whose members will have their profile photo updated
 # Verify/update via: $GAM_PATH print orgunits
 OU_PATH=""
 
-# Temp password every user in the OU will be set to
-TEMP_PASSWORD=""
+# Photo every user in the OU will be set to
+PHOTO_URL="https://raw.githubusercontent.com/XAlienAssassin/MacOS_Scripts/refs/heads/main/SA_Logo.png"
 
 # Check if GAM exists
 if [ ! -f "$GAM_PATH" ]; then
@@ -20,7 +19,7 @@ if [ ! -f "$GAM_PATH" ]; then
     exit 1
 fi
 
-echo "Starting script to change password for users in OU: $OU_PATH"
+echo "Starting script to update profile photos for users in OU: $OU_PATH"
 echo "Using GAM at: $GAM_PATH"
 
 # Pull the current member list of the OU so we can confirm before making changes
@@ -46,15 +45,17 @@ for email in "${emails[@]:0:5}"; do
     echo "  - $email"
 done
 echo ""
+echo "Photo to apply: $PHOTO_URL"
+echo ""
 
-read -p "Change the password for all $total users above? (y/n): " confirm
+read -p "Update the profile photo for all $total users above? (y/n): " confirm
 if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
-    echo "Aborted. No passwords were changed."
+    echo "Aborted. No photos were changed."
     exit 0
 fi
 
 # GAM natively expands ou into every user directly in that OU
 # (use ou_and_children instead of ou to also include nested sub-OUs)
-"$GAM_PATH" update users ou "$OU_PATH" password "$TEMP_PASSWORD" changepassword true
+"$GAM_PATH" ou "$OU_PATH" update photo "$PHOTO_URL"
 
 echo "All users in $OU_PATH processed."
