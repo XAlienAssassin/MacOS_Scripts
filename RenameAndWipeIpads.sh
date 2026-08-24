@@ -5,10 +5,10 @@ apiuser=""
 apipass=""
 csvFile=""
 logDir="${HOME}/Downloads"
-BATCH_SIZE="${BATCH_SIZE:-8}"
-WAIT_SECONDS="${WAIT_SECONDS:-480}"
-MAX_RETRIES="${MAX_RETRIES:-3}"
-RETRY_DELAY_SECONDS="${RETRY_DELAY_SECONDS:-5}"
+BATCH_SIZE=8
+WAIT_SECONDS=480
+MAX_RETRIES=3
+RETRY_DELAY_SECONDS=5
 # ─────────────────────────────────────────────────────────────────────────────
 #
 # CSV format (with header row):
