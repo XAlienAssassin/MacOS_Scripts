@@ -4,7 +4,7 @@ jssURL=""
 apiuser=""
 apipass=""
 csvFile=""
-logDir="/Users/orion.medina/Downloads"
+logDir="${HOME}/Downloads"
 BATCH_SIZE="${BATCH_SIZE:-5}"
 WAIT_SECONDS="${WAIT_SECONDS:-600}"
 MAX_RETRIES="${MAX_RETRIES:-3}"
@@ -34,6 +34,13 @@ if [[ "$(uname)" == "Darwin" ]] && command -v caffeinate >/dev/null 2>&1 && [[ -
     export CAFFEINATED=1
     exec caffeinate -i bash "$0" "$@"
 fi
+
+for dep in curl python3; do
+    if ! command -v "$dep" >/dev/null 2>&1; then
+        echo "ERROR: '$dep' is required but not found on this machine (install it, e.g. via Xcode Command Line Tools or Homebrew, and re-run)." >&2
+        exit 1
+    fi
+done
 
 if [[ -z "$jssURL" ]]; then
     read -p "Please enter your Jamf Pro server URL : " jssURL
