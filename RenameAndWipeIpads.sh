@@ -1,12 +1,12 @@
 #!/bin/bash
 # ── Configuration ────────────────────────────────────────────────────────────
-jssURL=""
-apiuser=""
+jssURL="https://macapps.saintandrews.net:8443"
+apiuser="orion.medina@saintandrews.net"
 apipass=""
 csvFile=""
 logDir="${HOME}/Downloads"
-BATCH_SIZE=8
-WAIT_SECONDS=480
+BATCH_SIZE=12
+WAIT_SECONDS=420
 MAX_RETRIES=3
 RETRY_DELAY_SECONDS=5
 # ─────────────────────────────────────────────────────────────────────────────
@@ -73,6 +73,12 @@ jssURL="${jssURL%/}"
 mkdir -p "$logDir"
 logFile="${logDir}/Rename_And_Wipe_iPads_$(date +%Y%m%d_%H%M%S).log"
 touch "$logFile"
+
+# Tracks serials that have already been renamed AND successfully erased for
+# this CSV, so re-running the script after a failure (e.g. an interrupted run)
+# doesn't re-wipe devices that already completed successfully.
+completedFile="${logDir}/$(basename "$csvFile").completed"
+touch "$completedFile"
 
 exec 3>&1 4>&2
 exec 1>>"$logFile" 2>&1
@@ -180,10 +186,34 @@ while IFS=, read -r rawSerial rawName; do
     newnames+=("$newname")
 done < "$csvFile"
 
+# Drop any serial already marked complete (renamed + erased) in a prior run
+# against this same CSV — never re-wipe a device that already succeeded.
+pendingSerials=()
+pendingNewnames=()
+skippedCompleted=0
+for (( i = 0; i < ${#serials[@]}; i++ )); do
+    if grep -Fxq "${serials[$i]}" "$completedFile"; then
+        skippedCompleted=$(( skippedCompleted + 1 ))
+        continue
+    fi
+    pendingSerials+=("${serials[$i]}")
+    pendingNewnames+=("${newnames[$i]}")
+done
+serials=("${pendingSerials[@]}")
+newnames=("${pendingNewnames[@]}")
+
+if [[ $skippedCompleted -gt 0 ]]; then
+    log "Skipping $skippedCompleted iPad(s) already renamed + erased in a previous run against this CSV (see $completedFile)."
+fi
+
 total=${#serials[@]}
 
 if [[ $total -eq 0 ]]; then
-    log "No serial number / name pairs found in $csvFile"
+    if [[ $skippedCompleted -gt 0 ]]; then
+        log "All $skippedCompleted serial number / name pair(s) in $csvFile were already completed in a previous run — nothing to do."
+    else
+        log "No serial number / name pairs found in $csvFile"
+    fi
     exit 0
 fi
 
@@ -206,16 +236,35 @@ fi
 
 # ── Look up a device by serial number ─────────────────────────────────────────
 # Prints "mobileDeviceId|managementId|currentDisplayName" or nothing if not found.
+# Retries once with a freshly-obtained token on a 401 so an expired bearer
+# token can't masquerade as "device not found" (the response body on a 401
+# has no "results" key, which the JSON parser would otherwise treat the same
+# as a genuinely empty result set).
 lookup_device() {
     local serial="$1"
-    local response
-    response=$(curl_retry -s --connect-timeout 10 --max-time 30 -G "${jssURL}/api/v2/mobile-devices/detail" \
-        -H "Authorization: Bearer $bearer_token" \
-        -H "Accept: application/json" \
-        --data-urlencode "filter=serialNumber==\"${serial}\"" \
-        --data-urlencode "section=GENERAL")
+    local attempt response http_code body
+    for attempt in 1 2; do
+        response=$(curl_retry -s --connect-timeout 10 --max-time 30 -w "\n%{http_code}" -G "${jssURL}/api/v2/mobile-devices/detail" \
+            -H "Authorization: Bearer $bearer_token" \
+            -H "Accept: application/json" \
+            --data-urlencode "filter=serialNumber==\"${serial}\"" \
+            --data-urlencode "section=GENERAL")
+        http_code=$(echo "$response" | tail -n1)
+        body=$(echo "$response" | sed '$d')
 
-    echo "$response" | python3 -c '
+        if [[ "$http_code" == "401" && $attempt -eq 1 ]]; then
+            log "Bearer token rejected (401) during lookup for serial $serial — refreshing and retrying..."
+            get_bearer_token
+            continue
+        fi
+
+        if [[ ! "$http_code" =~ ^2[0-9][0-9]$ ]]; then
+            log "Warning: Lookup for serial $serial failed with HTTP $http_code (not a 'not found' — an API error)"
+            log "Response: $body"
+            return 0
+        fi
+
+        echo "$body" | python3 -c '
 import sys, json
 try:
     data = json.loads(sys.stdin.read())
@@ -232,6 +281,8 @@ display_name = general.get("displayName", "")
 if mobile_device_id and management_id:
     print(f"{mobile_device_id}|{management_id}|{display_name}")
 ' 2>/dev/null
+        return 0
+    done
 }
 
 # ── Rename a device via MDM Settings command ──────────────────────────────────
@@ -302,6 +353,14 @@ while [[ $index -lt $total ]]; do
         rename_http_code=$(echo "$rename_response" | tail -n1)
         rename_body=$(echo "$rename_response" | sed '$d')
 
+        if [[ "$rename_http_code" == "401" ]]; then
+            log "Bearer token rejected (401) during rename for serial $serial — refreshing and retrying..."
+            get_bearer_token
+            rename_response=$(rename_device "$management_id" "$newname")
+            rename_http_code=$(echo "$rename_response" | tail -n1)
+            rename_body=$(echo "$rename_response" | sed '$d')
+        fi
+
         if [[ "$rename_http_code" =~ ^2[0-9][0-9]$ ]]; then
             log "Rename command queued: $serial -> $newname (iPad ID $mobile_device_id)"
             batch_mobile_ids+=("$mobile_device_id")
@@ -333,8 +392,17 @@ while [[ $index -lt $total ]]; do
         erase_http_code=$(echo "$erase_response" | tail -n1)
         erase_body=$(echo "$erase_response" | sed '$d')
 
+        if [[ "$erase_http_code" == "401" ]]; then
+            log "Bearer token rejected (401) during erase for serial $serial — refreshing and retrying..."
+            get_bearer_token
+            erase_response=$(erase_device "$mobile_device_id")
+            erase_http_code=$(echo "$erase_response" | tail -n1)
+            erase_body=$(echo "$erase_response" | sed '$d')
+        fi
+
         if [[ "$erase_http_code" =~ ^2[0-9][0-9]$ ]]; then
             log "Erase command queued for serial $serial (iPad ID $mobile_device_id)"
+            echo "$serial" >> "$completedFile"
         else
             log "Error: Failed to queue erase for serial $serial (iPad ID $mobile_device_id) (HTTP $erase_http_code)"
             log "Response: $erase_body"
